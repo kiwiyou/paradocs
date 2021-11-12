@@ -25,14 +25,15 @@ pub fn parse_document(html: &Html) -> Option<Document> {
     let item_decl = maybe_decl.and_then(parse_item_decl).map(|decl| decl.code);
     let pre = maybe_decl.and_then(parse_pre).map(|decl| decl.code);
     let declaration = item_decl.or(pre);
-    
+
     let maybe_item_info = if declaration.is_none() {
         maybe_decl
     } else {
         children.next()
     };
     let item_info = maybe_item_info.and_then(parse_item_info);
-    let (stability, portability) = item_info.map_or((None, None), |info| (info.stability, info.portability));
+    let (stability, portability) =
+        item_info.map_or((None, None), |info| (info.stability, info.portability));
 
     let maybe_top_doc = if stability.is_none() && portability.is_none() {
         maybe_item_info
@@ -58,7 +59,7 @@ struct Fqn<'a> {
 
 fn parse_fqn(maybe_fqn: NodeRef<Node>) -> Option<Fqn> {
     let fqn = maybe_fqn.value().as_element()?;
-    
+
     if !(fqn.name() == "h1" && fqn.has_class("fqn", CaseSensitivity::CaseSensitive)) {
         return None;
     }
@@ -90,9 +91,7 @@ fn parse_in_band(maybe_in_band: NodeRef<Node>) -> Option<InBand> {
 
     let text = parse_text_inside(maybe_in_band);
 
-    Some(InBand {
-        text,
-    })
+    Some(InBand { text })
 }
 
 struct OutOfBand<'a> {
@@ -102,24 +101,24 @@ struct OutOfBand<'a> {
 fn parse_out_of_band(maybe_out_of_band: NodeRef<Node>) -> Option<OutOfBand> {
     let out_of_band = maybe_out_of_band.value().as_element()?;
 
-    if !(out_of_band.name() == "span" && out_of_band.has_class("out-of-band", CaseSensitivity::CaseSensitive)) {
+    if !(out_of_band.name() == "span"
+        && out_of_band.has_class("out-of-band", CaseSensitivity::CaseSensitive))
+    {
         return None;
     }
 
     for child in maybe_out_of_band.children() {
         if let Some(element) = child.value().as_element() {
-            if element.name() == "span" && element.has_class("since", CaseSensitivity::CaseSensitive) {
+            if element.name() == "span"
+                && element.has_class("since", CaseSensitivity::CaseSensitive)
+            {
                 let since = ElementRef::wrap(child).unwrap().text().next()?;
-                return Some(OutOfBand {
-                    since: Some(since)
-                })
+                return Some(OutOfBand { since: Some(since) });
             }
         }
     }
 
-    Some(OutOfBand {
-        since: None
-    })
+    Some(OutOfBand { since: None })
 }
 
 struct ItemDecl<'a> {
@@ -128,16 +127,17 @@ struct ItemDecl<'a> {
 
 fn parse_item_decl(maybe_item_decl: NodeRef<Node>) -> Option<ItemDecl> {
     let item_decl = maybe_item_decl.value().as_element()?;
-    
-    if !(item_decl.name() == "div" && (item_decl.has_class("item-decl", CaseSensitivity::CaseSensitive) || item_decl.has_class("type-decl", CaseSensitivity::CaseSensitive))) {
+
+    if !(item_decl.name() == "div"
+        && (item_decl.has_class("item-decl", CaseSensitivity::CaseSensitive)
+            || item_decl.has_class("type-decl", CaseSensitivity::CaseSensitive)))
+    {
         return None;
     }
 
     for child in maybe_item_decl.children() {
         if let Some(pre) = parse_pre(child) {
-            return Some(ItemDecl {
-                code: pre.code
-            })
+            return Some(ItemDecl { code: pre.code });
         }
     }
     None
@@ -151,15 +151,19 @@ struct ItemInfo<'a> {
 fn parse_item_info(maybe_item_info: NodeRef<Node>) -> Option<ItemInfo> {
     let item_info = maybe_item_info.value().as_element()?;
 
-    if !(item_info.name() == "div" && item_info.has_class("item-info", CaseSensitivity::CaseSensitive)) {
-        return None
+    if !(item_info.name() == "div"
+        && item_info.has_class("item-info", CaseSensitivity::CaseSensitive))
+    {
+        return None;
     }
 
     let mut stability = None;
     let mut portability = None;
     for child in maybe_item_info.children() {
         if let Some(maybe_stab) = child.value().as_element() {
-            if maybe_stab.name() == "div" && maybe_stab.has_class("stab", CaseSensitivity::CaseSensitive) {
+            if maybe_stab.name() == "div"
+                && maybe_stab.has_class("stab", CaseSensitivity::CaseSensitive)
+            {
                 if maybe_stab.has_class("unstable", CaseSensitivity::CaseSensitive) {
                     stability = Some(parse_text_inside(child));
                 } else if maybe_stab.has_class("portability", CaseSensitivity::CaseSensitive) {
@@ -176,21 +180,23 @@ fn parse_item_info(maybe_item_info: NodeRef<Node>) -> Option<ItemInfo> {
 }
 
 struct TopDoc<'a> {
-    sections: Vec<Section<'a>>
+    sections: Vec<Section<'a>>,
 }
 
 fn parse_top_doc(maybe_top_doc: NodeRef<Node>) -> Option<TopDoc> {
     let top_doc = maybe_top_doc.value().as_element()?;
 
-    if !(top_doc.name() == "details" && top_doc.has_class("top-doc", CaseSensitivity::CaseSensitive)) {
-        return None
+    if !(top_doc.name() == "details"
+        && top_doc.has_class("top-doc", CaseSensitivity::CaseSensitive))
+    {
+        return None;
     }
 
     for child in maybe_top_doc.children() {
         if let Some(doc_block) = parse_doc_block(child) {
-            return Some(TopDoc{
-                sections: doc_block.sections
-            })
+            return Some(TopDoc {
+                sections: doc_block.sections,
+            });
         }
     }
     None
@@ -210,15 +216,19 @@ pub struct Section<'a> {
 fn parse_doc_block(maybe_doc_block: NodeRef<Node>) -> Option<DocBlock> {
     let doc_block = maybe_doc_block.value().as_element()?;
 
-    if !(doc_block.name() == "div" && doc_block.has_class("docblock", CaseSensitivity::CaseSensitive)) {
-        return None
+    if !(doc_block.name() == "div"
+        && doc_block.has_class("docblock", CaseSensitivity::CaseSensitive))
+    {
+        return None;
     }
 
     let mut sections = vec![];
 
     for child in maybe_doc_block.children() {
         if let Some(element) = child.value().as_element() {
-            if element.name().starts_with("h") && (b'2'..=b'6').contains(&element.name().as_bytes()[1]) {
+            if element.name().starts_with("h")
+                && (b'2'..=b'6').contains(&element.name().as_bytes()[1])
+            {
                 let depth = element.name().as_bytes()[1] - b'0';
                 let heading = parse_text_inside(child);
                 sections.push(Section {
@@ -227,7 +237,10 @@ fn parse_doc_block(maybe_doc_block: NodeRef<Node>) -> Option<DocBlock> {
                     contents: vec![],
                 });
             } else {
-                let content = parse_p(child).map(Paragraph::Text).or_else(|| parse_list(child).map(Paragraph::List)).or_else(|| parse_code(child).map(Paragraph::Code));
+                let content = parse_p(child)
+                    .map(Paragraph::Text)
+                    .or_else(|| parse_list(child).map(Paragraph::List))
+                    .or_else(|| parse_code(child).map(Paragraph::Code));
                 if let Some(content) = content {
                     if let Some(section) = sections.last_mut() {
                         section.contents.push(content);
@@ -243,9 +256,7 @@ fn parse_doc_block(maybe_doc_block: NodeRef<Node>) -> Option<DocBlock> {
         }
     }
 
-    Some(DocBlock {
-        sections,
-    })
+    Some(DocBlock { sections })
 }
 
 #[derive(Debug)]
@@ -259,7 +270,7 @@ fn parse_p(maybe_p: NodeRef<Node>) -> Option<Vec<TextPart>> {
     let p = maybe_p.value().as_element()?;
 
     if p.name() != "p" {
-        return None
+        return None;
     }
 
     Some(parse_text_inside(maybe_p))
@@ -269,7 +280,7 @@ fn parse_list(maybe_list: NodeRef<Node>) -> Option<Vec<Vec<TextPart>>> {
     let list = maybe_list.value().as_element()?;
 
     if !(list.name() == "ul" || list.name() == "ol") {
-        return None
+        return None;
     }
 
     let mut list = vec![];
@@ -277,7 +288,7 @@ fn parse_list(maybe_list: NodeRef<Node>) -> Option<Vec<Vec<TextPart>>> {
     for child in maybe_list.children() {
         let li = child.value().as_element()?;
         if li.name() != "li" {
-            return None
+            return None;
         }
         list.push(parse_text_inside(child));
     }
@@ -289,12 +300,12 @@ fn parse_code(maybe_code: NodeRef<Node>) -> Option<Vec<TextPart>> {
     let code = maybe_code.value().as_element()?;
 
     if !(code.name() == "div" && code.has_class("example-wrap", CaseSensitivity::CaseSensitive)) {
-        return None
+        return None;
     }
 
     for child in maybe_code.children() {
         if let Some(code) = parse_pre(child) {
-            return Some(code.code)
+            return Some(code.code);
         }
     }
     None
@@ -339,54 +350,54 @@ fn parse_text_inside(node: NodeRef<Node>) -> Vec<TextPart> {
                 Node::Text(text) => {
                     buffer.push(TextPart::Text(text));
                 }
-                Node::Element(element) => {
-                    match element.name() {
-                        "a" => {
-                            let href = element.attrs().find_map(|(key, value)| (key == "href").then(|| value));
-                            buffer.push(TextPart::BeginStyle(TextStyle::Link(href)));
-                            parse_text_to(child, buffer);
-                            buffer.push(TextPart::EndStyle);
-                        }
-                        "strong" => {
-                            buffer.push(TextPart::BeginStyle(TextStyle::Bold));
-                            parse_text_to(child, buffer);
-                            buffer.push(TextPart::EndStyle);
-                        }
-                        "em" => {
-                            buffer.push(TextPart::BeginStyle(TextStyle::Italic));
-                            parse_text_to(child, buffer);
-                            buffer.push(TextPart::EndStyle);
-                        }
-                        "u" => {
-                            buffer.push(TextPart::BeginStyle(TextStyle::Underline));
-                            parse_text_to(child, buffer);
-                            buffer.push(TextPart::EndStyle);
-                        }
-                        "del" => {
-                            buffer.push(TextPart::BeginStyle(TextStyle::Strikethrough));
-                            parse_text_to(child, buffer);
-                            buffer.push(TextPart::EndStyle);
-                        }
-                        "code" => {
-                            buffer.push(TextPart::BeginStyle(TextStyle::Monospaced));
-                            parse_text_to(child, buffer);
-                            buffer.push(TextPart::EndStyle);
-                        }
-                        "br" => {
+                Node::Element(element) => match element.name() {
+                    "a" => {
+                        let href = element
+                            .attrs()
+                            .find_map(|(key, value)| (key == "href").then(|| value));
+                        buffer.push(TextPart::BeginStyle(TextStyle::Link(href)));
+                        parse_text_to(child, buffer);
+                        buffer.push(TextPart::EndStyle);
+                    }
+                    "strong" => {
+                        buffer.push(TextPart::BeginStyle(TextStyle::Bold));
+                        parse_text_to(child, buffer);
+                        buffer.push(TextPart::EndStyle);
+                    }
+                    "em" => {
+                        buffer.push(TextPart::BeginStyle(TextStyle::Italic));
+                        parse_text_to(child, buffer);
+                        buffer.push(TextPart::EndStyle);
+                    }
+                    "u" => {
+                        buffer.push(TextPart::BeginStyle(TextStyle::Underline));
+                        parse_text_to(child, buffer);
+                        buffer.push(TextPart::EndStyle);
+                    }
+                    "del" => {
+                        buffer.push(TextPart::BeginStyle(TextStyle::Strikethrough));
+                        parse_text_to(child, buffer);
+                        buffer.push(TextPart::EndStyle);
+                    }
+                    "code" => {
+                        buffer.push(TextPart::BeginStyle(TextStyle::Monospaced));
+                        parse_text_to(child, buffer);
+                        buffer.push(TextPart::EndStyle);
+                    }
+                    "br" => {
+                        buffer.push(TextPart::Text("\n"));
+                    }
+                    "span" => {
+                        if element.has_class("fmt-newline", CaseSensitivity::CaseSensitive) {
                             buffer.push(TextPart::Text("\n"));
                         }
-                        "span" => {
-                            if element.has_class("fmt-newline", CaseSensitivity::CaseSensitive) {
-                                buffer.push(TextPart::Text("\n"));
-                            }
-                            parse_text_to(child, buffer);
-                        }
-                        "p" => {
-                            parse_text_to(child, buffer);
-                        }
-                        _ => {}
+                        parse_text_to(child, buffer);
                     }
-                }
+                    "p" => {
+                        parse_text_to(child, buffer);
+                    }
+                    _ => {}
+                },
                 _ => {}
             }
         }

@@ -176,7 +176,7 @@ pub fn parse_doc_block(maybe_doc_block: NodeRef<Node>) -> Option<DocBlock> {
     for child in maybe_doc_block.children() {
         if let Some(element) = child.value().as_element() {
             if element.name().starts_with('h')
-                && (b'2'..=b'6').contains(&element.name().as_bytes()[1])
+                && (b'1'..=b'6').contains(&element.name().as_bytes()[1])
             {
                 let depth = element.name().as_bytes()[1] - b'0';
                 let heading = parse_text_inside(child);
@@ -195,7 +195,7 @@ pub fn parse_doc_block(maybe_doc_block: NodeRef<Node>) -> Option<DocBlock> {
                         section.contents.push(content);
                     } else {
                         sections.push(Section {
-                            depth: 2,
+                            depth: 0,
                             heading: None,
                             contents: vec![content],
                         });

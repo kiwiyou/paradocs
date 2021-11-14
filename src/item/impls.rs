@@ -193,8 +193,7 @@ fn parse_srclink(maybe_srclink: NodeRef<Node>) -> Option<Vec<TextPart>> {
 
     for child in maybe_srclink.children() {
         if let Some(code_header) = child.value().as_element() {
-            if code_header.has_class("code-header", CaseSensitivity::CaseSensitive)
-            {
+            if code_header.has_class("code-header", CaseSensitivity::CaseSensitive) {
                 return Some(parse_text_inside(child));
             }
         }
@@ -208,8 +207,6 @@ fn parse_toggle_item(maybe_toggle_item: NodeRef<Node>) -> Option<Item> {
     if toggle_item.name() != "details" {
         return None;
     }
-
-    eprintln!("{:#?}", toggle_item);
 
     let mut children = maybe_toggle_item.children();
     let maybe_summary = children.next()?;

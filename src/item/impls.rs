@@ -3,7 +3,7 @@ use scraper::Node;
 use selectors::attr::CaseSensitivity;
 
 use crate::{
-    atom::{parse_text_outside, TextPart},
+    atom::{parse_text_inside, parse_text_outside, TextPart},
     header::{parse_doc_block, parse_item_info},
 };
 
@@ -29,6 +29,29 @@ pub fn parse_impl_heading(maybe_impl_header: NodeRef<Node>) -> Option<ImplHeadin
             {
                 return Some(ImplHeading {
                     title: parse_text_outside(child),
+                });
+            }
+        }
+    }
+    None
+}
+
+pub fn parse_empty_impl(maybe_empty_impl: NodeRef<Node>) -> Option<Impl> {
+    let empty_impl = maybe_empty_impl.value().as_element()?;
+
+    if !(empty_impl.name() == "div" && empty_impl.has_class("impl", CaseSensitivity::CaseSensitive))
+    {
+        return None;
+    }
+
+    for child in maybe_empty_impl.children() {
+        if let Some(element) = child.value().as_element() {
+            if element.name() == "h3"
+                && element.has_class("in-band", CaseSensitivity::CaseSensitive)
+            {
+                return Some(Impl {
+                    target: parse_text_inside(child),
+                    items: vec![],
                 });
             }
         }
@@ -100,13 +123,21 @@ pub fn parse_impl_div(maybe_impl_list: NodeRef<Node>) -> Option<Vec<Impl>> {
     let mut impls = vec![];
 
     let mut children = maybe_impl_list.children();
-    while let Some(maybe_heading) = children.next() {
-        let heading = parse_impl_heading(maybe_heading)?;
-        let items = parse_impl_items(children.next()?)?;
-        impls.push(Impl {
-            target: heading.title,
-            items,
-        });
+    while let Some(child) = children.next() {
+        if let Some(empty) = parse_empty_impl(child) {
+            impls.push(empty);
+        } else if let Some(heading) = parse_impl_heading(child) {
+            impls.push(Impl {
+                target: heading.title,
+                items: vec![],
+            });
+        } else if let Some(items) = parse_impl_items(child) {
+            if let Some(last_impl) = impls.last_mut() {
+                last_impl.items = items;
+            }
+        } else {
+            return None;
+        }
     }
 
     Some(impls)

@@ -15,7 +15,7 @@ use crate::{
     header::parse_doc_block,
     item::{
         fields::parse_struct_field_or_variant,
-        impls::{parse_impl_div, parse_impl_heading, parse_impl_items},
+        impls::{parse_empty_impl, parse_impl_div, parse_impl_heading, parse_impl_items},
         is_item_header,
     },
 };
@@ -146,6 +146,8 @@ pub fn parse_document(html: &Html) -> Option<Document> {
                                 target: impl_heading.title,
                                 items: vec![],
                             });
+                        } else if let Some(empty) = parse_empty_impl(*sibling) {
+                            impls.push(empty);
                         }
                         children.next();
                     }

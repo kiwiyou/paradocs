@@ -130,8 +130,7 @@ pub fn parse_impl_div(maybe_impl_list: NodeRef<Node>) -> Option<Vec<Impl>> {
 
     let mut impls = vec![];
 
-    let mut children = maybe_impl_list.children();
-    while let Some(child) = children.next() {
+    for child in maybe_impl_list.children() {
         if let Some(empty) = parse_empty_impl(child) {
             impls.push(empty);
         } else if let Some(heading) = parse_impl_heading(child) {

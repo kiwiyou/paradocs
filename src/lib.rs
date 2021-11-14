@@ -2,14 +2,13 @@ mod atom;
 mod header;
 mod item;
 
-use atom::{parse_pre, Details, TextPart};
-use header::{parse_fqn, parse_item_decl, parse_item_info, parse_top_doc, Section};
+use atom::parse_pre;
+use header::{parse_fqn, parse_item_decl, parse_item_info, parse_top_doc};
 use item::{
     parse_item_header,
     table::{parse_block_table, parse_item_table},
-    Impl, Item, ItemRow,
 };
-use scraper::{Html, Selector};
+use scraper::Selector;
 
 use crate::{
     header::parse_doc_block,
@@ -19,6 +18,12 @@ use crate::{
         is_item_header,
     },
 };
+
+pub use atom::{Details, TextPart};
+pub use header::Section;
+pub use item::{Impl, Item, ItemRow};
+
+pub use scraper::Html;
 
 #[derive(Debug)]
 pub struct Document<'a> {
@@ -96,12 +101,11 @@ pub fn parse_document(html: &Html) -> Option<Document> {
                     });
                     break;
                 } else if let Some(field) = parse_struct_field_or_variant(*maybe_content) {
-                    let mut items = vec![];
-                    items.push(Item {
+                    let mut items = vec![Item {
                         name: field,
                         info: Default::default(),
                         description: None,
-                    });
+                    }];
                     children.next();
                     while let Some(sibling) = children.peek() {
                         if is_item_header(*sibling) {
@@ -129,11 +133,10 @@ pub fn parse_document(html: &Html) -> Option<Document> {
                     });
                     break;
                 } else if let Some(impl_heading) = parse_impl_heading(*maybe_content) {
-                    let mut impls = vec![];
-                    impls.push(Impl {
+                    let mut impls = vec![Impl {
                         target: impl_heading.title,
                         items: vec![],
-                    });
+                    }];
                     children.next();
                     while let Some(sibling) = children.peek() {
                         if is_item_header(*sibling) {

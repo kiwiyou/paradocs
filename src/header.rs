@@ -23,8 +23,8 @@ pub fn parse_fqn(maybe_fqn: NodeRef<Node>) -> Option<Fqn> {
     let mut out_of_band = None;
 
     for child in maybe_fqn.children() {
-        in_band = in_band.or(parse_in_band(child));
-        out_of_band = out_of_band.or(parse_out_of_band(child));
+        in_band = in_band.or_else(|| parse_in_band(child));
+        out_of_band = out_of_band.or_else(|| parse_out_of_band(child));
     }
 
     Some(Fqn {
@@ -175,7 +175,7 @@ pub fn parse_doc_block(maybe_doc_block: NodeRef<Node>) -> Option<DocBlock> {
 
     for child in maybe_doc_block.children() {
         if let Some(element) = child.value().as_element() {
-            if element.name().starts_with("h")
+            if element.name().starts_with('h')
                 && (b'2'..=b'6').contains(&element.name().as_bytes()[1])
             {
                 let depth = element.name().as_bytes()[1] - b'0';

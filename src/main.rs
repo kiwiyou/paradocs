@@ -13,4 +13,8 @@ fn main() {
     let std_ptr_dyn_metadata = include_str!("../std_ptr_dyn_metadata.html");
     let std_ptr_dyn_metadata_html = Html::parse_document(std_ptr_dyn_metadata);
     println!("{:#?}", parse_document(&std_ptr_dyn_metadata_html));
+
+    let teloxide_types_keyboard = include_str!("../teloxide_types_keyboard.html");
+    let teloxide_types_keyboard_html = Html::parse_document(teloxide_types_keyboard);
+    println!("{:#?}", parse_document(&teloxide_types_keyboard_html));
 }

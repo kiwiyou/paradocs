@@ -29,11 +29,11 @@ pub fn parse_list(maybe_list: NodeRef<Node>) -> Option<Vec<Vec<TextPart>>> {
     let mut list = vec![];
 
     for child in maybe_list.children() {
-        let li = child.value().as_element()?;
-        if li.name() != "li" {
-            return None;
+        if let Some(li) = child.value().as_element() {
+            if li.name() == "li" {
+                list.push(parse_text_inside(child));
+            }
         }
-        list.push(parse_text_inside(child));
     }
 
     Some(list)

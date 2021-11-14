@@ -10,7 +10,10 @@ use item::{
 };
 use scraper::{Html, Selector};
 
-use crate::{header::parse_doc_block, item::is_item_header};
+use crate::{
+    header::parse_doc_block,
+    item::{fields::parse_struct_field_or_variant, is_item_header},
+};
 
 #[derive(Debug)]
 pub struct Document<'a> {
@@ -33,6 +36,13 @@ pub struct ItemListing<'a> {
 #[derive(Debug)]
 pub enum ListingType<'a> {
     Table(Vec<ItemRow<'a>>),
+    Fields(Vec<Field<'a>>),
+}
+
+#[derive(Debug)]
+pub struct Field<'a> {
+    name: Vec<TextPart<'a>>,
+    description: Option<Vec<Section<'a>>>,
 }
 
 pub fn parse_document(html: &Html) -> Option<Document> {
@@ -83,6 +93,33 @@ pub fn parse_document(html: &Html) -> Option<Document> {
                     items.push(ItemListing {
                         heading,
                         kind: ListingType::Table(table),
+                    });
+                    break;
+                } else if let Some(field) = parse_struct_field_or_variant(*maybe_content) {
+                    let mut fields = vec![];
+                    fields.push(Field {
+                        name: field,
+                        description: None,
+                    });
+                    children.next();
+                    while let Some(field_or_desc) = children.peek() {
+                        if is_item_header(*field_or_desc) {
+                            break;
+                        } else if let Some(field) = parse_struct_field_or_variant(*field_or_desc) {
+                            fields.push(Field {
+                                name: field,
+                                description: None,
+                            });
+                        } else if let Some(description) = parse_doc_block(*field_or_desc) {
+                            if let Some(last_field) = fields.last_mut() {
+                                last_field.description = Some(description.sections);
+                            }
+                        }
+                        children.next();
+                    }
+                    items.push(ItemListing {
+                        heading,
+                        kind: ListingType::Fields(fields),
                     });
                     break;
                 } else {

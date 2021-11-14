@@ -1,0 +1,654 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="This object represents one button of the reply keyboard."><meta name="keywords" content="rust, rustlang, rust-lang, KeyboardButton"><title>KeyboardButton in teloxide::types - Rust</title><link rel="stylesheet" type="text/css" href="/normalize-20211024-1.58.0-nightly-00d5e42e7.css"><link rel="stylesheet" href="/-/static/vendored.css?0-6-0-a4342e4-2021-11-13" type="text/css" media="all" />
+
+    <link rel="stylesheet" type="text/css" href="/rustdoc-20211024-1.58.0-nightly-00d5e42e7.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="/light-20211024-1.58.0-nightly-00d5e42e7.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="/dark-20211024-1.58.0-nightly-00d5e42e7.css" disabled ><link rel="stylesheet" type="text/css" href="/ayu-20211024-1.58.0-nightly-00d5e42e7.css" disabled ><script id="default-settings" ></script><script src="/storage-20211024-1.58.0-nightly-00d5e42e7.js"></script><script src="../../crates-20211024-1.58.0-nightly-00d5e42e7.js"></script><noscript><link rel="stylesheet" href="/noscript-20211024-1.58.0-nightly-00d5e42e7.css"></noscript><link rel="shortcut icon" href="https:&#x2F;&#x2F;github.com&#x2F;teloxide&#x2F;teloxide&#x2F;raw&#x2F;master&#x2F;ICON.png"><style type="text/css">#crate-search{background-image:url("/down-arrow-20211024-1.58.0-nightly-00d5e42e7.svg");}</style><link rel="stylesheet" href="/-/static/rustdoc.css?0-6-0-a4342e4-2021-11-13" type="text/css" media="all" />
+    
+            <link rel="search" href="/-/static/opensearch.xml" type="application/opensearchdescription+xml" title="Docs.rs" />
+    
+            <script type="text/javascript">function applyTheme(theme) {
+      document.documentElement.dataset.theme = theme;
+    }
+    
+    window.addEventListener('storage', function (ev) {
+      if (ev.key === 'rustdoc-theme') {
+        applyTheme(ev.newValue);
+      }
+    });
+    
+    // see ./storage-change-detection.html for details
+    window.addEventListener('message', function (ev) {
+      if (ev.data && ev.data.storage && ev.data.storage.key === 'rustdoc-theme') {
+        applyTheme(ev.data.storage.value);
+      }
+    });
+    
+    applyTheme(window.localStorage.getItem('rustdoc-theme'));
+    </script>
+    </head><body class="rustdoc-page"><div class="nav-container">
+        <div class="container">
+            <div class="pure-menu pure-menu-horizontal" role="navigation" aria-label="Main navigation">
+                <form action="/releases/search"
+                      method="GET"
+                      class="landing-search-form-nav  ">
+                    
+                    <div id="search-input-nav" class="pure-menu-right">
+                        <label for="nav-search">
+                            <span class="fa-svg " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg></span>
+                        </label>
+    
+                        
+                        
+                        <input id="nav-search" name="query" type="text" aria-label="Find crate by search query" tabindex="-1"
+                            placeholder="Find crate">
+                    </div>
+    
+                    
+                    <a href="/" class="pure-menu-heading pure-menu-link" aria-label="Docs.rs">
+                        <span title="Docs.rs"><span class="fa-svg " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M488.6 250.2L392 214V105.5c0-15-9.3-28.4-23.4-33.7l-100-37.5c-8.1-3.1-17.1-3.1-25.3 0l-100 37.5c-14.1 5.3-23.4 18.7-23.4 33.7V214l-96.6 36.2C9.3 255.5 0 268.9 0 283.9V394c0 13.6 7.7 26.1 19.9 32.2l100 50c10.1 5.1 22.1 5.1 32.2 0l103.9-52 103.9 52c10.1 5.1 22.1 5.1 32.2 0l100-50c12.2-6.1 19.9-18.6 19.9-32.2V283.9c0-15-9.3-28.4-23.4-33.7zM358 214.8l-85 31.9v-68.2l85-37v73.3zM154 104.1l102-38.2 102 38.2v.6l-102 41.4-102-41.4v-.6zm84 291.1l-85 42.5v-79.1l85-38.8v75.4zm0-112l-102 41.4-102-41.4v-.6l102-38.2 102 38.2v.6zm240 112l-85 42.5v-79.1l85-38.8v75.4zm0-112l-102 41.4-102-41.4v-.6l102-38.2 102 38.2v.6z"/></svg></span></span>
+                        <span class="title">Docs.rs</span>
+                    </a><ul class="pure-menu-list pure-menu-right">
+                        <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover pure-menu-opt-children">
+                            <a href="/releases" class="pure-menu-link">
+                                <span title="Releases"><span class="fa-svg " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M546.2 9.7c-5.6-12.5-21.6-13-28.3-1.2C486.9 62.4 431.4 96 368 96h-80C182 96 96 182 96 288c0 7 .8 13.7 1.5 20.5C161.3 262.8 253.4 224 384 224c8.8 0 16 7.2 16 16s-7.2 16-16 16C132.6 256 26 410.1 2.4 468c-6.6 16.3 1.2 34.9 17.5 41.6 16.4 6.8 35-1.1 41.8-17.3 1.5-3.6 20.9-47.9 71.9-90.6 32.4 43.9 94 85.8 174.9 77.2C465.5 467.5 576 326.7 576 154.3c0-50.2-10.8-102.2-29.8-144.6z"/></svg></span></span>
+                                <span class="title">Releases</span>
+                            </a>
+    
+                            <ul class="pure-menu-children">
+                                
+        <li class="pure-menu-item">
+            <a class="pure-menu-link " href="&#x2F;releases&#x2F;stars" >
+                Releases by Stars
+            </a>
+        </li>
+    
+                                
+        <li class="pure-menu-item">
+            <a class="pure-menu-link " href="&#x2F;releases&#x2F;recent-failures" >
+                Recent Build Failures
+            </a>
+        </li>
+    
+                                
+        <li class="pure-menu-item">
+            <a class="pure-menu-link " href="&#x2F;releases&#x2F;failures" >
+                Build Failures by Stars
+            </a>
+        </li>
+    
+                                
+        <li class="pure-menu-item">
+            <a class="pure-menu-link " href="&#x2F;releases&#x2F;activity" >
+                Release Activity
+            </a>
+        </li>
+    
+                            </ul>
+                        </li><li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover pure-menu-opt">
+                            <a href="https://www.rust-lang.org/" target="_blank" class="pure-menu-link">
+                                Rust
+                            </a>
+    
+                            <ul class="pure-menu-children">
+                                
+        <li class="pure-menu-item">
+            <a class="pure-menu-link " href="https:&#x2F;&#x2F;doc.rust-lang.org&#x2F;book&#x2F;" target="_blank">
+                The Book
+            </a>
+        </li>
+    
+    
+                                
+        <li class="pure-menu-item">
+            <a class="pure-menu-link " href="https:&#x2F;&#x2F;doc.rust-lang.org&#x2F;std&#x2F;" target="_blank">
+                Standard Library API Reference
+            </a>
+        </li>
+    
+    
+                                
+        <li class="pure-menu-item">
+            <a class="pure-menu-link " href="https:&#x2F;&#x2F;doc.rust-lang.org&#x2F;rust-by-example&#x2F;" target="_blank">
+                Rust by Example
+            </a>
+        </li>
+    
+    
+                                
+        <li class="pure-menu-item">
+            <a class="pure-menu-link menu-item-divided" href="https:&#x2F;&#x2F;rust-lang-nursery.github.io&#x2F;rust-cookbook&#x2F;" target="_blank">
+                Rust Cookbook
+            </a>
+        </li>
+    
+    
+                                
+        <li class="pure-menu-item">
+            <a class="pure-menu-link " href="https:&#x2F;&#x2F;crates.io" target="_blank">
+                Crates.io
+            </a>
+        </li>
+    
+    
+                                
+        <li class="pure-menu-item">
+            <a class="pure-menu-link " href="http:&#x2F;&#x2F;doc.crates.io&#x2F;guide.html" target="_blank">
+                The Cargo Guide
+            </a>
+        </li>
+    
+                            </ul>
+                        </li>
+                    </ul>
+    <ul class="pure-menu-list"><li class="pure-menu-item pure-menu-has-children">
+                <a href="#" class="pure-menu-link crate-name" title="An elegant Telegram bots framework for Rust">
+                    <span class="fa-svg " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M239.1 6.3l-208 78c-18.7 7-31.1 25-31.1 45v225.1c0 18.2 10.3 34.8 26.5 42.9l208 104c13.5 6.8 29.4 6.8 42.9 0l208-104c16.3-8.1 26.5-24.8 26.5-42.9V129.3c0-20-12.4-37.9-31.1-44.9l-208-78C262 2.2 250 2.2 239.1 6.3zM256 68.4l192 72v1.1l-192 78-192-78v-1.1l192-72zm32 356V275.5l160-65v133.9l-160 80z"/></svg></span>
+                    <span class="title">teloxide-0.5.3</span>
+                </a>
+    
+                
+                <div class="pure-menu-children package-details-menu">
+                    
+                    <ul class="pure-menu-list menu-item-divided">
+                        <li class="pure-menu-heading" id="crate-title">
+                            teloxide 0.5.3
+                            <span id="clipboard" class="fa-svg fa-svg-fw" title="Copy crate name and version information"><svg width="24" height="25" viewBox="0 0 24 25" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="Copy to clipboard"><path d="M18 20h2v3c0 1-1 2-2 2H2c-.998 0-2-1-2-2V5c0-.911.755-1.667 1.667-1.667h5A3.323 3.323 0 0110 0a3.323 3.323 0 013.333 3.333h5C19.245 3.333 20 4.09 20 5v8.333h-2V9H2v14h16v-3zM3 7h14c0-.911-.793-1.667-1.75-1.667H13.5c-.957 0-1.75-.755-1.75-1.666C11.75 2.755 10.957 2 10 2s-1.75.755-1.75 1.667c0 .911-.793 1.666-1.75 1.666H4.75C3.793 5.333 3 6.09 3 7z"/><path d="M4 19h6v2H4zM12 11H4v2h8zM4 17h4v-2H4zM15 15v-3l-4.5 4.5L15 21v-3l8.027-.032L23 15z"/></svg></span>
+                        </li>
+    
+                        <li class="pure-menu-item">
+                            <a href="/crate/teloxide/0.5.3" class="pure-menu-link description" title="See teloxide in docs.rs">
+                                <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M239.1 6.3l-208 78c-18.7 7-31.1 25-31.1 45v225.1c0 18.2 10.3 34.8 26.5 42.9l208 104c13.5 6.8 29.4 6.8 42.9 0l208-104c16.3-8.1 26.5-24.8 26.5-42.9V129.3c0-20-12.4-37.9-31.1-44.9l-208-78C262 2.2 250 2.2 239.1 6.3zM256 68.4l192 72v1.1l-192 78-192-78v-1.1l192-72zm32 356V275.5l160-65v133.9l-160 80z"/></svg></span> Docs.rs crate page
+                            </a>
+                        </li>
+    
+                        <li class="pure-menu-item">
+                            <a href="/crate/teloxide/0.5.3" class="pure-menu-link">
+                                <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M96 464v32c0 8.84 7.16 16 16 16h224c8.84 0 16-7.16 16-16V153.25c4.56-2 8.92-4.35 12.99-7.12l142.05 47.63c8.38 2.81 17.45-1.71 20.26-10.08l10.17-30.34c2.81-8.38-1.71-17.45-10.08-20.26l-128.4-43.05c.42-3.32 1.01-6.6 1.01-10.03 0-44.18-35.82-80-80-80-29.69 0-55.3 16.36-69.11 40.37L132.96.83c-8.38-2.81-17.45 1.71-20.26 10.08l-10.17 30.34c-2.81 8.38 1.71 17.45 10.08 20.26l132 44.26c7.28 21.25 22.96 38.54 43.38 47.47V448H112c-8.84 0-16 7.16-16 16zM0 304c0 44.18 57.31 80 128 80s128-35.82 128-80h-.02c0-15.67 2.08-7.25-85.05-181.51-17.68-35.36-68.22-35.29-85.87 0C-1.32 295.27.02 287.82.02 304H0zm56-16l72-144 72 144H56zm328.02 144H384c0 44.18 57.31 80 128 80s128-35.82 128-80h-.02c0-15.67 2.08-7.25-85.05-181.51-17.68-35.36-68.22-35.29-85.87 0-86.38 172.78-85.04 165.33-85.04 181.51zM440 416l72-144 72 144H440z"/></svg></span> MIT
+                            </a>
+                        </li>
+                    </ul>
+    
+                    <div class="pure-g menu-item-divided">
+                        <div class="pure-u-1-2 right-border">
+                            <ul class="pure-menu-list">
+                                <li class="pure-menu-heading">Links</li>
+    
+                                <li class="pure-menu-item">
+                                        <a href="https:&#x2F;&#x2F;docs.rs&#x2F;teloxide&#x2F;" title="Canonical documentation" class="pure-menu-link">
+                                            <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M288 248v28c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-28c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12zm-12 72H108c-6.6 0-12 5.4-12 12v28c0 6.6 5.4 12 12 12h168c6.6 0 12-5.4 12-12v-28c0-6.6-5.4-12-12-12zm108-188.1V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V48C0 21.5 21.5 0 48 0h204.1C264.8 0 277 5.1 286 14.1L369.9 98c9 8.9 14.1 21.2 14.1 33.9zm-128-80V128h76.1L256 51.9zM336 464V176H232c-13.3 0-24-10.7-24-24V48H48v416h288z"/></svg></span> Documentation
+                                        </a>
+                                    </li><li class="pure-menu-item">
+                                        <a href="https:&#x2F;&#x2F;github.com&#x2F;teloxide&#x2F;teloxide" class="pure-menu-link">
+                                            <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M384 144c0-44.2-35.8-80-80-80s-80 35.8-80 80c0 36.4 24.3 67.1 57.5 76.8-.6 16.1-4.2 28.5-11 36.9-15.4 19.2-49.3 22.4-85.2 25.7-28.2 2.6-57.4 5.4-81.3 16.9v-144c32.5-10.2 56-40.5 56-76.3 0-44.2-35.8-80-80-80S0 35.8 0 80c0 35.8 23.5 66.1 56 76.3v199.3C23.5 365.9 0 396.2 0 432c0 44.2 35.8 80 80 80s80-35.8 80-80c0-34-21.2-63.1-51.2-74.6 3.1-5.2 7.8-9.8 14.9-13.4 16.2-8.2 40.4-10.4 66.1-12.8 42.2-3.9 90-8.4 118.2-43.4 14-17.4 21.1-39.8 21.6-67.9 31.6-10.8 54.4-40.7 54.4-75.9zM80 64c8.8 0 16 7.2 16 16s-7.2 16-16 16-16-7.2-16-16 7.2-16 16-16zm0 384c-8.8 0-16-7.2-16-16s7.2-16 16-16 16 7.2 16 16-7.2 16-16 16zm224-320c8.8 0 16 7.2 16 16s-7.2 16-16 16-16-7.2-16-16 7.2-16 16-16z"/></svg></span> Repository
+                                        </a>
+                                    </li><li class="pure-menu-item">
+                                    <a href="https://crates.io/crates/teloxide" class="pure-menu-link" title="See teloxide in crates.io">
+                                        <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M239.1 6.3l-208 78c-18.7 7-31.1 25-31.1 45v225.1c0 18.2 10.3 34.8 26.5 42.9l208 104c13.5 6.8 29.4 6.8 42.9 0l208-104c16.3-8.1 26.5-24.8 26.5-42.9V129.3c0-20-12.4-37.9-31.1-44.9l-208-78C262 2.2 250 2.2 239.1 6.3zM256 68.4l192 72v1.1l-192 78-192-78v-1.1l192-72zm32 356V275.5l160-65v133.9l-160 80z"/></svg></span> Crates.io
+                                    </a>
+                                </li>
+    
+                                
+                                <li class="pure-menu-item">
+                                    <a href="/crate/teloxide/0.5.3/source/" title="Browse source of teloxide-0.5.3" class="pure-menu-link">
+                                        <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M572.694 292.093L500.27 416.248A63.997 63.997 0 0 1 444.989 448H45.025c-18.523 0-30.064-20.093-20.731-36.093l72.424-124.155A64 64 0 0 1 152 256h399.964c18.523 0 30.064 20.093 20.73 36.093zM152 224h328v-48c0-26.51-21.49-48-48-48H272l-64-64H48C21.49 64 0 85.49 0 112v278.046l69.077-118.418C86.214 242.25 117.989 224 152 224z"/></svg></span> Source
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+    
+                        
+                        <div class="pure-u-1-2">
+                            <ul class="pure-menu-list">
+                                <li class="pure-menu-heading">Owners</li><li class="pure-menu-item">
+                                        <a href="/releases/Hirrolot" class="pure-menu-link">
+                                            <span class="fa-svg fa-svg-fw " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"/></svg></span> Hirrolot
+                                        </a>
+                                    </li></ul>
+                        </div>
+                    </div>
+    
+                    <div class="pure-g menu-item-divided">
+                        <div class="pure-u-1-2 right-border">
+                            <ul class="pure-menu-list">
+                                <li class="pure-menu-heading">Dependencies</li>
+    
+                                
+                                <li class="pure-menu-item">
+                                    <div class="pure-menu pure-menu-scrollable sub-menu" tabindex="-1">
+                                        <ul class="pure-menu-list"><li class="pure-menu-item">
+                                                    <a href="/async-trait/^0.1" class="pure-menu-link">
+                                                        async-trait ^0.1
+                                                        <i class="dependencies normal">normal</i>
+                                                    </a>
+                                                </li><li class="pure-menu-item">
+                                                    <a href="/bincode/^1.3" class="pure-menu-link">
+                                                        bincode ^1.3
+                                                        <i class="dependencies normal">normal</i>
+                                                    </a>
+                                                </li><li class="pure-menu-item">
+                                                    <a href="/bytes/^1.0" class="pure-menu-link">
+                                                        bytes ^1.0
+                                                        <i class="dependencies normal">normal</i>
+                                                    </a>
+                                                </li><li class="pure-menu-item">
+                                                    <a href="/derive_more/^0.99" class="pure-menu-link">
+                                                        derive_more ^0.99
+                                                        <i class="dependencies normal">normal</i>
+                                                    </a>
+                                                </li><li class="pure-menu-item">
+                                                    <a href="/flurry/^0.3" class="pure-menu-link">
+                                                        flurry ^0.3
+                                                        <i class="dependencies normal">normal</i>
+                                                    </a>
+                                                </li><li class="pure-menu-item">
+                                                    <a href="/frunk/^0.4" class="pure-menu-link">
+                                                        frunk ^0.4
+                                                        <i class="dependencies normal">normal</i>
+                                                    </a>
+                                                </li><li class="pure-menu-item">
+                                                    <a href="/futures/^0.3.15" class="pure-menu-link">
+                                                        futures ^0.3.15
+                                                        <i class="dependencies normal">normal</i>
+                                                    </a>
+                                                </li><li class="pure-menu-item">
+                                                    <a href="/log/^0.4" class="pure-menu-link">
+                                                        log ^0.4
+                                                        <i class="dependencies normal">normal</i>
+                                                    </a>
+                                                </li><li class="pure-menu-item">
+                                                    <a href="/mime/^0.3" class="pure-menu-link">
+                                                        mime ^0.3
+                                                        <i class="dependencies normal">normal</i>
+                                                    </a>
+                                                </li><li class="pure-menu-item">
+                                                    <a href="/pin-project/^1.0" class="pure-menu-link">
+                                                        pin-project ^1.0
+                                                        <i class="dependencies normal">normal</i>
+                                                    </a>
+                                                </li><li class="pure-menu-item">
+                                                    <a href="/redis/^0.20" class="pure-menu-link">
+                                                        redis ^0.20
+                                                        <i class="dependencies normal">normal</i>
+                                                    </a>
+                                                </li><li class="pure-menu-item">
+                                                    <a href="/serde/^1.0" class="pure-menu-link">
+                                                        serde ^1.0
+                                                        <i class="dependencies normal">normal</i>
+                                                    </a>
+                                                </li><li class="pure-menu-item">
+                                                    <a href="/serde_cbor/^0.11" class="pure-menu-link">
+                                                        serde_cbor ^0.11
+                                                        <i class="dependencies normal">normal</i>
+                                                    </a>
+                                                </li><li class="pure-menu-item">
+                                                    <a href="/serde_json/^1.0" class="pure-menu-link">
+                                                        serde_json ^1.0
+                                                        <i class="dependencies normal">normal</i>
+                                                    </a>
+                                                </li><li class="pure-menu-item">
+                                                    <a href="/serde_with_macros/^1.4" class="pure-menu-link">
+                                                        serde_with_macros ^1.4
+                                                        <i class="dependencies normal">normal</i>
+                                                    </a>
+                                                </li><li class="pure-menu-item">
+                                                    <a href="/sqlx/^0.5" class="pure-menu-link">
+                                                        sqlx ^0.5
+                                                        <i class="dependencies normal">normal</i>
+                                                    </a>
+                                                </li><li class="pure-menu-item">
+                                                    <a href="/teloxide-core/^0.3.3" class="pure-menu-link">
+                                                        teloxide-core ^0.3.3
+                                                        <i class="dependencies normal">normal</i>
+                                                    </a>
+                                                </li><li class="pure-menu-item">
+                                                    <a href="/teloxide-macros/^0.4" class="pure-menu-link">
+                                                        teloxide-macros ^0.4
+                                                        <i class="dependencies normal">normal</i>
+                                                    </a>
+                                                </li><li class="pure-menu-item">
+                                                    <a href="/thiserror/^1.0" class="pure-menu-link">
+                                                        thiserror ^1.0
+                                                        <i class="dependencies normal">normal</i>
+                                                    </a>
+                                                </li><li class="pure-menu-item">
+                                                    <a href="/tokio/^1.8" class="pure-menu-link">
+                                                        tokio ^1.8
+                                                        <i class="dependencies normal">normal</i>
+                                                    </a>
+                                                </li><li class="pure-menu-item">
+                                                    <a href="/tokio-stream/^0.1" class="pure-menu-link">
+                                                        tokio-stream ^0.1
+                                                        <i class="dependencies normal">normal</i>
+                                                    </a>
+                                                </li><li class="pure-menu-item">
+                                                    <a href="/tokio-util/^0.6" class="pure-menu-link">
+                                                        tokio-util ^0.6
+                                                        <i class="dependencies normal">normal</i>
+                                                    </a>
+                                                </li><li class="pure-menu-item">
+                                                    <a href="/lazy_static/^1.4.0" class="pure-menu-link">
+                                                        lazy_static ^1.4.0
+                                                        <i class="dependencies dev">dev</i>
+                                                    </a>
+                                                </li><li class="pure-menu-item">
+                                                    <a href="/pretty_env_logger/^0.4.0" class="pure-menu-link">
+                                                        pretty_env_logger ^0.4.0
+                                                        <i class="dependencies dev">dev</i>
+                                                    </a>
+                                                </li><li class="pure-menu-item">
+                                                    <a href="/rand/^0.8.3" class="pure-menu-link">
+                                                        rand ^0.8.3
+                                                        <i class="dependencies dev">dev</i>
+                                                    </a>
+                                                </li><li class="pure-menu-item">
+                                                    <a href="/smart-default/^0.6.0" class="pure-menu-link">
+                                                        smart-default ^0.6.0
+                                                        <i class="dependencies dev">dev</i>
+                                                    </a>
+                                                </li><li class="pure-menu-item">
+                                                    <a href="/tokio/^1.8" class="pure-menu-link">
+                                                        tokio ^1.8
+                                                        <i class="dependencies dev">dev</i>
+                                                    </a>
+                                                </li></ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+    
+                        <div class="pure-u-1-2">
+                            <ul class="pure-menu-list">
+                                <li class="pure-menu-heading">Versions</li>
+    
+                                <li class="pure-menu-item">
+                                    <div class="pure-menu pure-menu-scrollable sub-menu" tabindex="-1">
+                                        <ul class="pure-menu-list">
+                                            
+                                            
+            
+            
+            <li class="pure-menu-item">
+                <a
+                    href="/crate/teloxide/0.5.3/target-redirect/teloxide/types/struct.KeyboardButton.html"
+                    class="pure-menu-link"
+                    
+                    data-fragment="retain"
+                >
+                    
+                    0.5.3
+                </a>
+            </li>
+            
+            
+            <li class="pure-menu-item">
+                <a
+                    href="/crate/teloxide/0.5.2/target-redirect/teloxide/types/struct.KeyboardButton.html"
+                    class="pure-menu-link"
+                    
+                    data-fragment="retain"
+                >
+                    
+                    0.5.2
+                </a>
+            </li>
+            
+            
+            <li class="pure-menu-item">
+                <a
+                    href="/crate/teloxide/0.5.1/target-redirect/teloxide/types/struct.KeyboardButton.html"
+                    class="pure-menu-link"
+                    
+                    data-fragment="retain"
+                >
+                    
+                    0.5.1
+                </a>
+            </li>
+            
+            
+            <li class="pure-menu-item">
+                <a
+                    href="/crate/teloxide/0.5.0/target-redirect/teloxide/types/struct.KeyboardButton.html"
+                    class="pure-menu-link"
+                    
+                    data-fragment="retain"
+                >
+                    
+                    0.5.0
+                </a>
+            </li>
+            
+            
+            <li class="pure-menu-item">
+                <a
+                    href="/crate/teloxide/0.4.0/target-redirect/teloxide/types/struct.KeyboardButton.html"
+                    class="pure-menu-link"
+                    
+                    data-fragment="retain"
+                >
+                    
+                    0.4.0
+                </a>
+            </li>
+            
+            
+            <li class="pure-menu-item">
+                <a
+                    href="/crate/teloxide/0.3.4/target-redirect/teloxide/types/struct.KeyboardButton.html"
+                    class="pure-menu-link"
+                    
+                    data-fragment="retain"
+                >
+                    
+                    0.3.4
+                </a>
+            </li>
+            
+            
+            <li class="pure-menu-item">
+                <a
+                    href="/crate/teloxide/0.3.3/target-redirect/teloxide/types/struct.KeyboardButton.html"
+                    class="pure-menu-link"
+                    
+                    data-fragment="retain"
+                >
+                    
+                    0.3.3
+                </a>
+            </li>
+            
+            
+            <li class="pure-menu-item">
+                <a
+                    href="/crate/teloxide/0.3.2/target-redirect/teloxide/types/struct.KeyboardButton.html"
+                    class="pure-menu-link"
+                    
+                    data-fragment="retain"
+                >
+                    
+                    0.3.2
+                </a>
+            </li>
+            
+            
+            <li class="pure-menu-item">
+                <a
+                    href="/crate/teloxide/0.3.1/target-redirect/teloxide/types/struct.KeyboardButton.html"
+                    class="pure-menu-link"
+                    
+                    data-fragment="retain"
+                >
+                    
+                    0.3.1
+                </a>
+            </li>
+            
+            
+            <li class="pure-menu-item">
+                <a
+                    href="/crate/teloxide/0.3.0/target-redirect/teloxide/types/struct.KeyboardButton.html"
+                    class="pure-menu-link"
+                    
+                    data-fragment="retain"
+                >
+                    
+                    0.3.0
+                </a>
+            </li>
+            
+            
+            <li class="pure-menu-item">
+                <a
+                    href="/crate/teloxide/0.2.0/target-redirect/teloxide/types/struct.KeyboardButton.html"
+                    class="pure-menu-link"
+                    
+                    data-fragment="retain"
+                >
+                    
+                    0.2.0
+                </a>
+            </li>
+            
+            
+            <li class="pure-menu-item">
+                <a
+                    href="/crate/teloxide/0.1.0/target-redirect/teloxide/types/struct.KeyboardButton.html"
+                    class="pure-menu-link"
+                    
+                    data-fragment="retain"
+                >
+                    
+                    0.1.0
+                </a>
+            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                        <div class="pure-g">
+                            <div class="pure-u-1">
+                                <ul class="pure-menu-list">
+                                    <li>
+                                        <a href="/crate/teloxide/0.5.3" class="pure-menu-link">
+                                            <b>70.05%</b>
+                                            of the crate is documented
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div></div>
+            </li><li class="pure-menu-item pure-menu-has-children">
+            <a href="#" class="pure-menu-link" aria-label="Platform">
+                <span class="fa-svg " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M512.1 191l-8.2 14.3c-3 5.3-9.4 7.5-15.1 5.4-11.8-4.4-22.6-10.7-32.1-18.6-4.6-3.8-5.8-10.5-2.8-15.7l8.2-14.3c-6.9-8-12.3-17.3-15.9-27.4h-16.5c-6 0-11.2-4.3-12.2-10.3-2-12-2.1-24.6 0-37.1 1-6 6.2-10.4 12.2-10.4h16.5c3.6-10.1 9-19.4 15.9-27.4l-8.2-14.3c-3-5.2-1.9-11.9 2.8-15.7 9.5-7.9 20.4-14.2 32.1-18.6 5.7-2.1 12.1.1 15.1 5.4l8.2 14.3c10.5-1.9 21.2-1.9 31.7 0L552 6.3c3-5.3 9.4-7.5 15.1-5.4 11.8 4.4 22.6 10.7 32.1 18.6 4.6 3.8 5.8 10.5 2.8 15.7l-8.2 14.3c6.9 8 12.3 17.3 15.9 27.4h16.5c6 0 11.2 4.3 12.2 10.3 2 12 2.1 24.6 0 37.1-1 6-6.2 10.4-12.2 10.4h-16.5c-3.6 10.1-9 19.4-15.9 27.4l8.2 14.3c3 5.2 1.9 11.9-2.8 15.7-9.5 7.9-20.4 14.2-32.1 18.6-5.7 2.1-12.1-.1-15.1-5.4l-8.2-14.3c-10.4 1.9-21.2 1.9-31.7 0zm-10.5-58.8c38.5 29.6 82.4-14.3 52.8-52.8-38.5-29.7-82.4 14.3-52.8 52.8zM386.3 286.1l33.7 16.8c10.1 5.8 14.5 18.1 10.5 29.1-8.9 24.2-26.4 46.4-42.6 65.8-7.4 8.9-20.2 11.1-30.3 5.3l-29.1-16.8c-16 13.7-34.6 24.6-54.9 31.7v33.6c0 11.6-8.3 21.6-19.7 23.6-24.6 4.2-50.4 4.4-75.9 0-11.5-2-20-11.9-20-23.6V418c-20.3-7.2-38.9-18-54.9-31.7L74 403c-10 5.8-22.9 3.6-30.3-5.3-16.2-19.4-33.3-41.6-42.2-65.7-4-10.9.4-23.2 10.5-29.1l33.3-16.8c-3.9-20.9-3.9-42.4 0-63.4L12 205.8c-10.1-5.8-14.6-18.1-10.5-29 8.9-24.2 26-46.4 42.2-65.8 7.4-8.9 20.2-11.1 30.3-5.3l29.1 16.8c16-13.7 34.6-24.6 54.9-31.7V57.1c0-11.5 8.2-21.5 19.6-23.5 24.6-4.2 50.5-4.4 76-.1 11.5 2 20 11.9 20 23.6v33.6c20.3 7.2 38.9 18 54.9 31.7l29.1-16.8c10-5.8 22.9-3.6 30.3 5.3 16.2 19.4 33.2 41.6 42.1 65.8 4 10.9.1 23.2-10 29.1l-33.7 16.8c3.9 21 3.9 42.5 0 63.5zm-117.6 21.1c59.2-77-28.7-164.9-105.7-105.7-59.2 77 28.7 164.9 105.7 105.7zm243.4 182.7l-8.2 14.3c-3 5.3-9.4 7.5-15.1 5.4-11.8-4.4-22.6-10.7-32.1-18.6-4.6-3.8-5.8-10.5-2.8-15.7l8.2-14.3c-6.9-8-12.3-17.3-15.9-27.4h-16.5c-6 0-11.2-4.3-12.2-10.3-2-12-2.1-24.6 0-37.1 1-6 6.2-10.4 12.2-10.4h16.5c3.6-10.1 9-19.4 15.9-27.4l-8.2-14.3c-3-5.2-1.9-11.9 2.8-15.7 9.5-7.9 20.4-14.2 32.1-18.6 5.7-2.1 12.1.1 15.1 5.4l8.2 14.3c10.5-1.9 21.2-1.9 31.7 0l8.2-14.3c3-5.3 9.4-7.5 15.1-5.4 11.8 4.4 22.6 10.7 32.1 18.6 4.6 3.8 5.8 10.5 2.8 15.7l-8.2 14.3c6.9 8 12.3 17.3 15.9 27.4h16.5c6 0 11.2 4.3 12.2 10.3 2 12 2.1 24.6 0 37.1-1 6-6.2 10.4-12.2 10.4h-16.5c-3.6 10.1-9 19.4-15.9 27.4l8.2 14.3c3 5.2 1.9 11.9-2.8 15.7-9.5 7.9-20.4 14.2-32.1 18.6-5.7 2.1-12.1-.1-15.1-5.4l-8.2-14.3c-10.4 1.9-21.2 1.9-31.7 0zM501.6 431c38.5 29.6 82.4-14.3 52.8-52.8-38.5-29.6-82.4 14.3-52.8 52.8z"/></svg></span>
+                <span class="title">Platform</span>
+            </a>
+    
+            
+            <ul class="pure-menu-children"><li class="pure-menu-item">
+                        <a href="/crate/teloxide/0.5.3/target-redirect/x86_64-unknown-linux-gnu/teloxide/types/struct.KeyboardButton.html" class="pure-menu-link" data-fragment="retain" rel="nofollow">x86_64-unknown-linux-gnu</a>
+                    </li></ul>
+        </li><li class="pure-menu-item">
+            <a href="/crate/teloxide/0.5.3/features" title="Browse available feature flags of teloxide-0.5.3" class="pure-menu-link">
+                <span class="fa-svg " aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M349.565 98.783C295.978 98.783 251.721 64 184.348 64c-24.955 0-47.309 4.384-68.045 12.013a55.947 55.947 0 0 0 3.586-23.562C118.117 24.015 94.806 1.206 66.338.048 34.345-1.254 8 24.296 8 56c0 19.026 9.497 35.825 24 45.945V488c0 13.255 10.745 24 24 24h16c13.255 0 24-10.745 24-24v-94.4c28.311-12.064 63.582-22.122 114.435-22.122 53.588 0 97.844 34.783 165.217 34.783 48.169 0 86.667-16.294 122.505-40.858C506.84 359.452 512 349.571 512 339.045v-243.1c0-23.393-24.269-38.87-45.485-29.016-34.338 15.948-76.454 31.854-116.95 31.854z"/></svg></span>
+                <span class="title">Feature flags</span>
+            </a>
+        </li>
+        
+    </ul>                
+                    </form>
+            </div>
+        </div>
+    </div>
+    <div class="rustdoc struct container-rustdoc" id="rustdoc_body_wrapper" tabindex="-1"><script type="text/javascript" src="/-/static/menu.js?0-6-0-a4342e4-2021-11-13"></script>
+    <script type="text/javascript" src="/-/static/index.js?0-6-0-a4342e4-2021-11-13"></script>
+    <script>
+      // Reset the scroll offset on browsers that don't support
+      // scroll-padding-top (Desktop & Mobile Safari):
+      const maybeFixupViewPortPosition = function() {
+        if (window.location.hash) {
+          const anchorElement = document.getElementById(window.location.hash.substr(1));
+          const navBarHeight = document.getElementsByClassName("nav-container-rustdoc")[0].offsetHeight;
+          if (anchorElement &&
+              anchorElement.getBoundingClientRect().top <= navBarHeight &&
+              Math.abs(anchorElement.getBoundingClientRect().top) >= 0) {
+            // It's just overlapped by the nav bar. This can't be a coincidence, scroll it into view:
+            requestAnimationFrame(function() {
+              scrollBy(0, -navBarHeight);
+            });
+          }
+        }
+      };
+      window.addEventListener("hashchange", maybeFixupViewPortPosition, false);
+      // Fix up the scroll position if this was a direct visit to the page
+      // (not back/forward navigation):
+      if (window.performance) {
+        const navEntries = window.performance.getEntriesByType('navigation');
+        const usedBack = navEntries.length > 0 && navEntries[0].type === 'back_forward' ||
+              (window.performance.navigation &&
+               window.performance.navigation.type == window.performance.navigation.TYPE_BACK_FORWARD);
+        if (!usedBack && window.location.hash) {
+          window.addEventListener("scroll", maybeFixupViewPortPosition, {"once": true});
+        }
+      }
+    </script>
+    
+    
+    <iframe src="/-/storage-change-detection.html" width="0" height="0" style="display: none"></iframe><div class="docs-rs-footer">
+        <a href="/about">About docs.rs</a>
+        <a href="https://foundation.rust-lang.org/policies/privacy-policy/#docs.rs">Privacy policy</a>
+        <a href="/releases/queue">Build queue</a>
+    </div>
+    <!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../teloxide/index.html'><div class='logo-container rust-logo'><img src='https:&#x2F;&#x2F;github.com&#x2F;teloxide&#x2F;teloxide&#x2F;raw&#x2F;master&#x2F;ICON.png' alt='logo'></div></a><h2 class="location">Struct KeyboardButton</h2><div class="sidebar-elems"><div class="block items"><h3 class="sidebar-title"><a href="#fields">Fields</a></h3><div class="sidebar-links"><a href="#structfield.request">request</a><a href="#structfield.text">text</a></div><h3 class="sidebar-title"><a href="#implementations">Methods</a></h3><div class="sidebar-links"><a href="#method.new">new</a><a href="#method.request">request</a></div><h3 class="sidebar-title"><a href="#trait-implementations">Trait Implementations</a></h3><div class="sidebar-links"><a href="#impl-Clone">Clone</a><a href="#impl-Debug">Debug</a><a href="#impl-Deserialize%3C%27de%3E">Deserialize&lt;&#39;de&gt;</a><a href="#impl-Eq">Eq</a><a href="#impl-Hash">Hash</a><a href="#impl-PartialEq%3CKeyboardButton%3E">PartialEq&lt;KeyboardButton&gt;</a><a href="#impl-Serialize">Serialize</a><a href="#impl-StructuralEq">StructuralEq</a><a href="#impl-StructuralPartialEq">StructuralPartialEq</a></div><h3 class="sidebar-title"><a href="#synthetic-implementations">Auto Trait Implementations</a></h3><div class="sidebar-links"><a href="#impl-RefUnwindSafe">RefUnwindSafe</a><a href="#impl-Send">Send</a><a href="#impl-Sync">Sync</a><a href="#impl-Unpin">Unpin</a><a href="#impl-UnwindSafe">UnwindSafe</a></div><h3 class="sidebar-title"><a href="#blanket-implementations">Blanket Implementations</a></h3><div class="sidebar-links"><a href="#impl-Any">Any</a><a href="#impl-Borrow%3CT%3E">Borrow&lt;T&gt;</a><a href="#impl-BorrowMut%3CT%3E">BorrowMut&lt;T&gt;</a><a href="#impl-CallHasher">CallHasher</a><a href="#impl-CoproductSubsetter%3CCNil%2C%20HNil%3E">CoproductSubsetter&lt;CNil, HNil&gt;</a><a href="#impl-DeserializeOwned">DeserializeOwned</a><a href="#impl-Equivalent%3CK%3E">Equivalent&lt;K&gt;</a><a href="#impl-From%3CT%3E">From&lt;T&gt;</a><a href="#impl-Instrument">Instrument</a><a href="#impl-Into%3CU%3E">Into&lt;U&gt;</a><a href="#impl-LiftInto%3CU%2C%20I%3E">LiftInto&lt;U, I&gt;</a><a href="#impl-Sculptor%3CHNil%2C%20HNil%3E">Sculptor&lt;HNil, HNil&gt;</a><a href="#impl-ToOwned">ToOwned</a><a href="#impl-TryFrom%3CU%3E">TryFrom&lt;U&gt;</a><a href="#impl-TryInto%3CU%3E">TryInto&lt;U&gt;</a><a href="#impl-WithSubscriber">WithSubscriber</a></div></div><h2 class="location">Other items in<br><a href="../index.html">teloxide</a>::<wbr><a href="index.html">types</a></h2><div id="sidebar-vars" data-name="KeyboardButton" data-ty="struct" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="/brush-20211024-1.58.0-nightly-00d5e42e7.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="/wheel-20211024-1.58.0-nightly-00d5e42e7.svg"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Struct <a href="../index.html">teloxide</a>::<wbr><a href="index.html">types</a>::<wbr><a class="struct" href="#">KeyboardButton</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="/clipboard-20211024-1.58.0-nightly-00d5e42e7.svg" width="19" height="18" alt="Copy item path"></button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="https://docs.rs/teloxide-core/0.3.4/x86_64-unknown-linux-gnu/src/teloxide_core/types/keyboard_button.rs.html#13-25" title="goto source code">[src]</a></span></h1><div class="docblock item-decl"><pre class="rust struct"><code>pub struct KeyboardButton {
+        pub text: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
+        pub request: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="enum.ButtonRequest.html" title="enum teloxide::types::ButtonRequest">ButtonRequest</a>&gt;,
+    }</code></pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>This object represents one button of the reply keyboard.</p>
+    <p>For filter text buttons String can be used instead of this object to specify
+    text of the button.</p>
+    <p><a href="https://core.telegram.org/bots/api#keyboardbutton">The official docs</a>.</p>
+    </div></details><h2 id="fields" class="fields small-section-header">Fields<a href="#fields" class="anchor"></a></h2><span id="structfield.text" class="structfield small-section-header"><a href="#structfield.text" class="anchor field"></a><code>text: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code></span><div class="docblock"><p>Text of the button. If none of the optional fields are used, it will
+    be sent as a message when the button is pressed.</p>
+    </div><span id="structfield.request" class="structfield small-section-header"><a href="#structfield.request" class="anchor field"></a><code>request: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="enum.ButtonRequest.html" title="enum teloxide::types::ButtonRequest">ButtonRequest</a>&gt;</code></span><div class="docblock"><p>Request something from user.</p>
+    <ul>
+    <li>If <code>Some(Contact)</code>, the user’s phone number will be sent as a contact
+    when the button is pressed. Available in private chats only</li>
+    <li>If <code>Some(Location)</code>, the user’s current location will be sent when the
+    button is pressed. Available in private chats only</li>
+    </ul>
+    </div><h2 id="implementations" class="small-section-header">Implementations<a href="#implementations" class="anchor"></a></h2><details class="rustdoc-toggle implementors-toggle" open><summary><div id="impl" class="impl has-srclink"><div class="rightside"><a class="srclink" href="https://docs.rs/teloxide-core/0.3.4/x86_64-unknown-linux-gnu/src/teloxide_core/types/keyboard_button.rs.html#27-45" title="goto source code">[src]</a></div><a href="#impl" class="anchor"></a><h3 class="code-header in-band">impl <a class="struct" href="struct.KeyboardButton.html" title="struct teloxide::types::KeyboardButton">KeyboardButton</a></h3></div></summary><div class="impl-items"><div id="method.new" class="method has-srclink"><div class="rightside"><a class="srclink" href="https://docs.rs/teloxide-core/0.3.4/x86_64-unknown-linux-gnu/src/teloxide_core/types/keyboard_button.rs.html#28-30" title="goto source code">[src]</a></div><a href="#method.new" class="anchor"></a><h4 class="code-header">pub fn <a href="#method.new" class="fnname">new</a>&lt;T&gt;(text: T) -&gt; <a class="struct" href="struct.KeyboardButton.html" title="struct teloxide::types::KeyboardButton">KeyboardButton</a> <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,&nbsp;</span></h4></div><div id="method.request" class="method has-srclink"><div class="rightside"><a class="srclink" href="https://docs.rs/teloxide-core/0.3.4/x86_64-unknown-linux-gnu/src/teloxide_core/types/keyboard_button.rs.html#38-40" title="goto source code">[src]</a></div><a href="#method.request" class="anchor"></a><h4 class="code-header">pub fn <a href="#method.request" class="fnname">request</a>&lt;T&gt;(self, val: T) -&gt; <a class="struct" href="struct.KeyboardButton.html" title="struct teloxide::types::KeyboardButton">KeyboardButton</a> <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="enum" href="enum.ButtonRequest.html" title="enum teloxide::types::ButtonRequest">ButtonRequest</a>&gt;,&nbsp;</span></h4></div></div></details><h2 id="trait-implementations" class="small-section-header">Trait Implementations<a href="#trait-implementations" class="anchor"></a></h2><div id="trait-implementations-list"><details class="rustdoc-toggle implementors-toggle" open><summary><div id="impl-Clone" class="impl has-srclink"><div class="rightside"><a class="srclink" href="https://docs.rs/teloxide-core/0.3.4/x86_64-unknown-linux-gnu/src/teloxide_core/types/keyboard_button.rs.html#12" title="goto source code">[src]</a></div><a href="#impl-Clone" class="anchor"></a><h3 class="code-header in-band">impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a> for <a class="struct" href="struct.KeyboardButton.html" title="struct teloxide::types::KeyboardButton">KeyboardButton</a></h3></div></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><div id="method.clone" class="method trait-impl has-srclink"><div class="rightside"><a class="srclink" href="https://docs.rs/teloxide-core/0.3.4/x86_64-unknown-linux-gnu/src/teloxide_core/types/keyboard_button.rs.html#12" title="goto source code">[src]</a></div><a href="#method.clone" class="anchor"></a><h4 class="code-header">pub fn <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone" class="fnname">clone</a>(&amp;self) -&gt; <a class="struct" href="struct.KeyboardButton.html" title="struct teloxide::types::KeyboardButton">KeyboardButton</a></h4></div></summary><div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
+    </div></details><details class="rustdoc-toggle method-toggle" open><summary><div id="method.clone_from" class="method trait-impl has-srclink"><div class="rightside"><span class="since" title="Stable since Rust version 1.0.0">1.0.0</span><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/clone.rs.html#131" title="goto source code">[src]</a></div><a href="#method.clone_from" class="anchor"></a><h4 class="code-header">fn <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from" class="fnname">clone_from</a>(&amp;mut self, source: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self)</h4></div></summary><div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
+    </div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><div id="impl-Debug" class="impl has-srclink"><div class="rightside"><a class="srclink" href="https://docs.rs/teloxide-core/0.3.4/x86_64-unknown-linux-gnu/src/teloxide_core/types/keyboard_button.rs.html#12" title="goto source code">[src]</a></div><a href="#impl-Debug" class="anchor"></a><h3 class="code-header in-band">impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html" title="trait core::fmt::Debug">Debug</a> for <a class="struct" href="struct.KeyboardButton.html" title="struct teloxide::types::KeyboardButton">KeyboardButton</a></h3></div></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><div id="method.fmt" class="method trait-impl has-srclink"><div class="rightside"><a class="srclink" href="https://docs.rs/teloxide-core/0.3.4/x86_64-unknown-linux-gnu/src/teloxide_core/types/keyboard_button.rs.html#12" title="goto source code">[src]</a></div><a href="#method.fmt" class="anchor"></a><h4 class="code-header">pub fn <a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt" class="fnname">fmt</a>(&amp;self, f: &amp;mut <a class="struct" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html" title="struct core::fmt::Formatter">Formatter</a>&lt;'_&gt;) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Error.html" title="struct core::fmt::Error">Error</a>&gt;</h4></div></summary><div class='docblock'><p>Formats the value using the given formatter. <a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt">Read more</a></p>
+    </div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><div id="impl-Deserialize%3C%27de%3E" class="impl has-srclink"><div class="rightside"><a class="srclink" href="https://docs.rs/teloxide-core/0.3.4/x86_64-unknown-linux-gnu/src/teloxide_core/types/keyboard_button.rs.html#12" title="goto source code">[src]</a></div><a href="#impl-Deserialize%3C%27de%3E" class="anchor"></a><h3 class="code-header in-band">impl&lt;'de&gt; <a class="trait" href="https://docs.rs/serde/1.0.130/serde/de/trait.Deserialize.html" title="trait serde::de::Deserialize">Deserialize</a>&lt;'de&gt; for <a class="struct" href="struct.KeyboardButton.html" title="struct teloxide::types::KeyboardButton">KeyboardButton</a></h3></div></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><div id="method.deserialize" class="method trait-impl has-srclink"><div class="rightside"><a class="srclink" href="https://docs.rs/teloxide-core/0.3.4/x86_64-unknown-linux-gnu/src/teloxide_core/types/keyboard_button.rs.html#12" title="goto source code">[src]</a></div><a href="#method.deserialize" class="anchor"></a><h4 class="code-header">pub fn <a href="https://docs.rs/serde/1.0.130/serde/de/trait.Deserialize.html#tymethod.deserialize" class="fnname">deserialize</a>&lt;__D&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;__deserializer: __D<br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="struct.KeyboardButton.html" title="struct teloxide::types::KeyboardButton">KeyboardButton</a>, &lt;__D as <a class="trait" href="https://docs.rs/serde/1.0.130/serde/de/trait.Deserializer.html" title="trait serde::de::Deserializer">Deserializer</a>&lt;'de&gt;&gt;::<a class="type" href="https://docs.rs/serde/1.0.130/serde/de/trait.Deserializer.html#associatedtype.Error" title="type serde::de::Deserializer::Error">Error</a>&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;__D: <a class="trait" href="https://docs.rs/serde/1.0.130/serde/de/trait.Deserializer.html" title="trait serde::de::Deserializer">Deserializer</a>&lt;'de&gt;,&nbsp;</span></h4></div></summary><div class='docblock'><p>Deserialize this value from the given Serde deserializer. <a href="https://docs.rs/serde/1.0.130/serde/de/trait.Deserialize.html#tymethod.deserialize">Read more</a></p>
+    </div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><div id="impl-Hash" class="impl has-srclink"><div class="rightside"><a class="srclink" href="https://docs.rs/teloxide-core/0.3.4/x86_64-unknown-linux-gnu/src/teloxide_core/types/keyboard_button.rs.html#12" title="goto source code">[src]</a></div><a href="#impl-Hash" class="anchor"></a><h3 class="code-header in-band">impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/hash/trait.Hash.html" title="trait core::hash::Hash">Hash</a> for <a class="struct" href="struct.KeyboardButton.html" title="struct teloxide::types::KeyboardButton">KeyboardButton</a></h3></div></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><div id="method.hash" class="method trait-impl has-srclink"><div class="rightside"><a class="srclink" href="https://docs.rs/teloxide-core/0.3.4/x86_64-unknown-linux-gnu/src/teloxide_core/types/keyboard_button.rs.html#12" title="goto source code">[src]</a></div><a href="#method.hash" class="anchor"></a><h4 class="code-header">pub fn <a href="https://doc.rust-lang.org/nightly/core/hash/trait.Hash.html#tymethod.hash" class="fnname">hash</a>&lt;__H&gt;(&amp;self, state: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;mut </a>__H) <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;__H: <a class="trait" href="https://doc.rust-lang.org/nightly/core/hash/trait.Hasher.html" title="trait core::hash::Hasher">Hasher</a>,&nbsp;</span></h4></div></summary><div class='docblock'><p>Feeds this value into the given <a href="https://doc.rust-lang.org/nightly/core/hash/trait.Hasher.html" title="Hasher"><code>Hasher</code></a>. <a href="https://doc.rust-lang.org/nightly/core/hash/trait.Hash.html#tymethod.hash">Read more</a></p>
+    </div></details><details class="rustdoc-toggle method-toggle" open><summary><div id="method.hash_slice" class="method trait-impl has-srclink"><div class="rightside"><span class="since" title="Stable since Rust version 1.3.0">1.3.0</span><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/hash/mod.rs.html#224-226" title="goto source code">[src]</a></div><a href="#method.hash_slice" class="anchor"></a><h4 class="code-header">fn <a href="https://doc.rust-lang.org/nightly/core/hash/trait.Hash.html#method.hash_slice" class="fnname">hash_slice</a>&lt;H&gt;(data: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[Self]</a>, state: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;mut </a>H) <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;H: <a class="trait" href="https://doc.rust-lang.org/nightly/core/hash/trait.Hasher.html" title="trait core::hash::Hasher">Hasher</a>,&nbsp;</span></h4></div></summary><div class='docblock'><p>Feeds a slice of this type into the given <a href="https://doc.rust-lang.org/nightly/core/hash/trait.Hasher.html" title="Hasher"><code>Hasher</code></a>. <a href="https://doc.rust-lang.org/nightly/core/hash/trait.Hash.html#method.hash_slice">Read more</a></p>
+    </div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><div id="impl-PartialEq%3CKeyboardButton%3E" class="impl has-srclink"><div class="rightside"><a class="srclink" href="https://docs.rs/teloxide-core/0.3.4/x86_64-unknown-linux-gnu/src/teloxide_core/types/keyboard_button.rs.html#12" title="goto source code">[src]</a></div><a href="#impl-PartialEq%3CKeyboardButton%3E" class="anchor"></a><h3 class="code-header in-band">impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html" title="trait core::cmp::PartialEq">PartialEq</a>&lt;<a class="struct" href="struct.KeyboardButton.html" title="struct teloxide::types::KeyboardButton">KeyboardButton</a>&gt; for <a class="struct" href="struct.KeyboardButton.html" title="struct teloxide::types::KeyboardButton">KeyboardButton</a></h3></div></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><div id="method.eq" class="method trait-impl has-srclink"><div class="rightside"><a class="srclink" href="https://docs.rs/teloxide-core/0.3.4/x86_64-unknown-linux-gnu/src/teloxide_core/types/keyboard_button.rs.html#12" title="goto source code">[src]</a></div><a href="#method.eq" class="anchor"></a><h4 class="code-header">pub fn <a href="https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq" class="fnname">eq</a>(&amp;self, other: &amp;<a class="struct" href="struct.KeyboardButton.html" title="struct teloxide::types::KeyboardButton">KeyboardButton</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></div></summary><div class='docblock'><p>This method tests for <code>self</code> and <code>other</code> values to be equal, and is used
+    by <code>==</code>. <a href="https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq">Read more</a></p>
+    </div></details><details class="rustdoc-toggle method-toggle" open><summary><div id="method.ne" class="method trait-impl has-srclink"><div class="rightside"><a class="srclink" href="https://docs.rs/teloxide-core/0.3.4/x86_64-unknown-linux-gnu/src/teloxide_core/types/keyboard_button.rs.html#12" title="goto source code">[src]</a></div><a href="#method.ne" class="anchor"></a><h4 class="code-header">pub fn <a href="https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.ne" class="fnname">ne</a>(&amp;self, other: &amp;<a class="struct" href="struct.KeyboardButton.html" title="struct teloxide::types::KeyboardButton">KeyboardButton</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></div></summary><div class='docblock'><p>This method tests for <code>!=</code>.</p>
+    </div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><div id="impl-Serialize" class="impl has-srclink"><div class="rightside"><a class="srclink" href="https://docs.rs/teloxide-core/0.3.4/x86_64-unknown-linux-gnu/src/teloxide_core/types/keyboard_button.rs.html#12" title="goto source code">[src]</a></div><a href="#impl-Serialize" class="anchor"></a><h3 class="code-header in-band">impl <a class="trait" href="https://docs.rs/serde/1.0.130/serde/ser/trait.Serialize.html" title="trait serde::ser::Serialize">Serialize</a> for <a class="struct" href="struct.KeyboardButton.html" title="struct teloxide::types::KeyboardButton">KeyboardButton</a></h3></div></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><div id="method.serialize" class="method trait-impl has-srclink"><div class="rightside"><a class="srclink" href="https://docs.rs/teloxide-core/0.3.4/x86_64-unknown-linux-gnu/src/teloxide_core/types/keyboard_button.rs.html#12" title="goto source code">[src]</a></div><a href="#method.serialize" class="anchor"></a><h4 class="code-header">pub fn <a href="https://docs.rs/serde/1.0.130/serde/ser/trait.Serialize.html#tymethod.serialize" class="fnname">serialize</a>&lt;__S&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;__serializer: __S<br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;&lt;__S as <a class="trait" href="https://docs.rs/serde/1.0.130/serde/ser/trait.Serializer.html" title="trait serde::ser::Serializer">Serializer</a>&gt;::<a class="type" href="https://docs.rs/serde/1.0.130/serde/ser/trait.Serializer.html#associatedtype.Ok" title="type serde::ser::Serializer::Ok">Ok</a>, &lt;__S as <a class="trait" href="https://docs.rs/serde/1.0.130/serde/ser/trait.Serializer.html" title="trait serde::ser::Serializer">Serializer</a>&gt;::<a class="type" href="https://docs.rs/serde/1.0.130/serde/ser/trait.Serializer.html#associatedtype.Error" title="type serde::ser::Serializer::Error">Error</a>&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;__S: <a class="trait" href="https://docs.rs/serde/1.0.130/serde/ser/trait.Serializer.html" title="trait serde::ser::Serializer">Serializer</a>,&nbsp;</span></h4></div></summary><div class='docblock'><p>Serialize this value into the given Serde serializer. <a href="https://docs.rs/serde/1.0.130/serde/ser/trait.Serialize.html#tymethod.serialize">Read more</a></p>
+    </div></details></div></details><div id="impl-Eq" class="impl has-srclink"><div class="rightside"><a class="srclink" href="https://docs.rs/teloxide-core/0.3.4/x86_64-unknown-linux-gnu/src/teloxide_core/types/keyboard_button.rs.html#12" title="goto source code">[src]</a></div><a href="#impl-Eq" class="anchor"></a><h3 class="code-header in-band">impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/cmp/trait.Eq.html" title="trait core::cmp::Eq">Eq</a> for <a class="struct" href="struct.KeyboardButton.html" title="struct teloxide::types::KeyboardButton">KeyboardButton</a></h3></div><div id="impl-StructuralEq" class="impl has-srclink"><div class="rightside"><a class="srclink" href="https://docs.rs/teloxide-core/0.3.4/x86_64-unknown-linux-gnu/src/teloxide_core/types/keyboard_button.rs.html#12" title="goto source code">[src]</a></div><a href="#impl-StructuralEq" class="anchor"></a><h3 class="code-header in-band">impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.StructuralEq.html" title="trait core::marker::StructuralEq">StructuralEq</a> for <a class="struct" href="struct.KeyboardButton.html" title="struct teloxide::types::KeyboardButton">KeyboardButton</a></h3></div><div id="impl-StructuralPartialEq" class="impl has-srclink"><div class="rightside"><a class="srclink" href="https://docs.rs/teloxide-core/0.3.4/x86_64-unknown-linux-gnu/src/teloxide_core/types/keyboard_button.rs.html#12" title="goto source code">[src]</a></div><a href="#impl-StructuralPartialEq" class="anchor"></a><h3 class="code-header in-band">impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.StructuralPartialEq.html" title="trait core::marker::StructuralPartialEq">StructuralPartialEq</a> for <a class="struct" href="struct.KeyboardButton.html" title="struct teloxide::types::KeyboardButton">KeyboardButton</a></h3></div></div><h2 id="synthetic-implementations" class="small-section-header">Auto Trait Implementations<a href="#synthetic-implementations" class="anchor"></a></h2><div id="synthetic-implementations-list"><div id="impl-RefUnwindSafe" class="impl has-srclink"><div class="rightside"></div><a href="#impl-RefUnwindSafe" class="anchor"></a><h3 class="code-header in-band">impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/panic/unwind_safe/trait.RefUnwindSafe.html" title="trait core::panic::unwind_safe::RefUnwindSafe">RefUnwindSafe</a> for <a class="struct" href="struct.KeyboardButton.html" title="struct teloxide::types::KeyboardButton">KeyboardButton</a></h3></div><div id="impl-Send" class="impl has-srclink"><div class="rightside"></div><a href="#impl-Send" class="anchor"></a><h3 class="code-header in-band">impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> for <a class="struct" href="struct.KeyboardButton.html" title="struct teloxide::types::KeyboardButton">KeyboardButton</a></h3></div><div id="impl-Sync" class="impl has-srclink"><div class="rightside"></div><a href="#impl-Sync" class="anchor"></a><h3 class="code-header in-band">impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html" title="trait core::marker::Sync">Sync</a> for <a class="struct" href="struct.KeyboardButton.html" title="struct teloxide::types::KeyboardButton">KeyboardButton</a></h3></div><div id="impl-Unpin" class="impl has-srclink"><div class="rightside"></div><a href="#impl-Unpin" class="anchor"></a><h3 class="code-header in-band">impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html" title="trait core::marker::Unpin">Unpin</a> for <a class="struct" href="struct.KeyboardButton.html" title="struct teloxide::types::KeyboardButton">KeyboardButton</a></h3></div><div id="impl-UnwindSafe" class="impl has-srclink"><div class="rightside"></div><a href="#impl-UnwindSafe" class="anchor"></a><h3 class="code-header in-band">impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/panic/unwind_safe/trait.UnwindSafe.html" title="trait core::panic::unwind_safe::UnwindSafe">UnwindSafe</a> for <a class="struct" href="struct.KeyboardButton.html" title="struct teloxide::types::KeyboardButton">KeyboardButton</a></h3></div></div><h2 id="blanket-implementations" class="small-section-header">Blanket Implementations<a href="#blanket-implementations" class="anchor"></a></h2><div id="blanket-implementations-list"><details class="rustdoc-toggle implementors-toggle" open><summary><div id="impl-Any" class="impl has-srclink"><div class="rightside"><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/any.rs.html#132-136" title="goto source code">[src]</a></div><a href="#impl-Any" class="anchor"></a><h3 class="code-header in-band">impl&lt;T&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/any/trait.Any.html" title="trait core::any::Any">Any</a> for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: 'static + ?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,&nbsp;</span></h3></div></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><div id="method.type_id" class="method trait-impl has-srclink"><div class="rightside"><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/any.rs.html#133" title="goto source code">[src]</a></div><a href="#method.type_id" class="anchor"></a><h4 class="code-header">pub fn <a href="https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id" class="fnname">type_id</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/core/any/struct.TypeId.html" title="struct core::any::TypeId">TypeId</a></h4></div></summary><div class='docblock'><p>Gets the <code>TypeId</code> of <code>self</code>. <a href="https://doc.rust-lang.org/nightly/core/any/trait.Any.html#tymethod.type_id">Read more</a></p>
+    </div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><div id="impl-Borrow%3CT%3E" class="impl has-srclink"><div class="rightside"><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#208-213" title="goto source code">[src]</a></div><a href="#impl-Borrow%3CT%3E" class="anchor"></a><h3 class="code-header in-band">impl&lt;T&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html" title="trait core::borrow::Borrow">Borrow</a>&lt;T&gt; for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: ?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,&nbsp;</span></h3></div></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><div id="method.borrow" class="method trait-impl has-srclink"><div class="rightside"><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#210" title="goto source code">[src]</a></div><a href="#method.borrow" class="anchor"></a><h4 class="code-header">pub fn <a href="https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow" class="fnname">borrow</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>T</h4></div></summary><div class='docblock'><p>Immutably borrows from an owned value. <a href="https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html#tymethod.borrow">Read more</a></p>
+    </div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><div id="impl-BorrowMut%3CT%3E" class="impl has-srclink"><div class="rightside"><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#216-220" title="goto source code">[src]</a></div><a href="#impl-BorrowMut%3CT%3E" class="anchor"></a><h3 class="code-header in-band">impl&lt;T&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html" title="trait core::borrow::BorrowMut">BorrowMut</a>&lt;T&gt; for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: ?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,&nbsp;</span></h3></div></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><div id="method.borrow_mut" class="method trait-impl has-srclink"><div class="rightside"><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/borrow.rs.html#217" title="goto source code">[src]</a></div><a href="#method.borrow_mut" class="anchor"></a><h4 class="code-header">pub fn <a href="https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut" class="fnname">borrow_mut</a>(&amp;mut self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;mut </a>T</h4></div></summary><div class='docblock'><p>Mutably borrows from an owned value. <a href="https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html#tymethod.borrow_mut">Read more</a></p>
+    </div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><div id="impl-CallHasher" class="impl has-srclink"><div class="rightside"></div><a href="#impl-CallHasher" class="anchor"></a><h3 class="code-header in-band">impl&lt;T&gt; CallHasher for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="https://doc.rust-lang.org/nightly/core/hash/trait.Hash.html" title="trait core::hash::Hash">Hash</a> + ?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,&nbsp;</span></h3></div></summary><div class="impl-items"><div id="method.get_hash" class="method trait-impl has-srclink"><div class="rightside"></div><a href="#method.get_hash" class="anchor"></a><h4 class="code-header">pub default fn <a  class="fnname">get_hash</a>&lt;H, B&gt;(value: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>H, build_hasher: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>B) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a> <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;H: <a class="trait" href="https://doc.rust-lang.org/nightly/core/hash/trait.Hash.html" title="trait core::hash::Hash">Hash</a> + ?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;B: <a class="trait" href="https://doc.rust-lang.org/nightly/core/hash/trait.BuildHasher.html" title="trait core::hash::BuildHasher">BuildHasher</a>,&nbsp;</span></h4></div></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><div id="impl-CoproductSubsetter%3CCNil%2C%20HNil%3E" class="impl has-srclink"><div class="rightside"></div><a href="#impl-CoproductSubsetter%3CCNil%2C%20HNil%3E" class="anchor"></a><h3 class="code-header in-band">impl&lt;Choices&gt; CoproductSubsetter&lt;CNil, HNil&gt; for Choices</h3></div></summary><div class="impl-items"><div id="associatedtype.Remainder-1" class="type trait-impl has-srclink"><a href="#associatedtype.Remainder-1" class="anchor"></a><h4 class="code-header">type <a href="#associatedtype.Remainder" class="type">Remainder</a> = Choices</h4></div><details class="rustdoc-toggle method-toggle" open><summary><div id="method.subset" class="method trait-impl has-srclink"><div class="rightside"></div><a href="#method.subset" class="anchor"></a><h4 class="code-header">pub fn <a  class="fnname">subset</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;self<br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;CNil, &lt;Choices as CoproductSubsetter&lt;CNil, HNil&gt;&gt;::Remainder&gt;</h4></div></summary><div class='docblock'><p>Extract a subset of the possible types in a coproduct (or get the remaining possibilities) <a href="#tymethod.subset">Read more</a></p>
+    </div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><div id="impl-Equivalent%3CK%3E" class="impl has-srclink"><div class="rightside"><a class="srclink" href="https://docs.rs/indexmap/1/src/indexmap/equivalent.rs.html#18-27" title="goto source code">[src]</a></div><a href="#impl-Equivalent%3CK%3E" class="anchor"></a><h3 class="code-header in-band">impl&lt;Q, K&gt; <a class="trait" href="https://docs.rs/indexmap/1/indexmap/equivalent/trait.Equivalent.html" title="trait indexmap::equivalent::Equivalent">Equivalent</a>&lt;K&gt; for Q <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;Q: <a class="trait" href="https://doc.rust-lang.org/nightly/core/cmp/trait.Eq.html" title="trait core::cmp::Eq">Eq</a> + ?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;K: <a class="trait" href="https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html" title="trait core::borrow::Borrow">Borrow</a>&lt;Q&gt; + ?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,&nbsp;</span></h3></div></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><div id="method.equivalent" class="method trait-impl has-srclink"><div class="rightside"><a class="srclink" href="https://docs.rs/indexmap/1/src/indexmap/equivalent.rs.html#24" title="goto source code">[src]</a></div><a href="#method.equivalent" class="anchor"></a><h4 class="code-header">pub fn <a href="https://docs.rs/indexmap/1/indexmap/equivalent/trait.Equivalent.html#tymethod.equivalent" class="fnname">equivalent</a>(&amp;self, key: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>K) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></div></summary><div class='docblock'><p>Compare self to <code>key</code> and return <code>true</code> if they are equal.</p>
+    </div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><div id="impl-From%3CT%3E" class="impl has-srclink"><div class="rightside"><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#549-553" title="goto source code">[src]</a></div><a href="#impl-From%3CT%3E" class="anchor"></a><h3 class="code-header in-band">impl&lt;T&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html" title="trait core::convert::From">From</a>&lt;T&gt; for T</h3></div></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><div id="method.from" class="method trait-impl has-srclink"><div class="rightside"><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#550" title="goto source code">[src]</a></div><a href="#method.from" class="anchor"></a><h4 class="code-header">pub fn <a href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from" class="fnname">from</a>(t: T) -&gt; T</h4></div></summary><div class='docblock'><p>Performs the conversion.</p>
+    </div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><div id="impl-Instrument" class="impl has-srclink"><div class="rightside"><a class="srclink" href="https://docs.rs/tracing/0.1.29/src/tracing/instrument.rs.html#276" title="goto source code">[src]</a></div><a href="#impl-Instrument" class="anchor"></a><h3 class="code-header in-band">impl&lt;T&gt; <a class="trait" href="https://docs.rs/tracing/0.1.29/tracing/instrument/trait.Instrument.html" title="trait tracing::instrument::Instrument">Instrument</a> for T</h3></div></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><div id="method.instrument" class="method trait-impl has-srclink"><div class="rightside"><a class="srclink" href="https://docs.rs/tracing/0.1.29/src/tracing/instrument.rs.html#82" title="goto source code">[src]</a></div><a href="#method.instrument" class="anchor"></a><h4 class="code-header">fn <a href="https://docs.rs/tracing/0.1.29/tracing/instrument/trait.Instrument.html#method.instrument" class="fnname">instrument</a>(self, span: <a class="struct" href="https://docs.rs/tracing/0.1.29/tracing/span/struct.Span.html" title="struct tracing::span::Span">Span</a>) -&gt; <a class="struct" href="https://docs.rs/tracing/0.1.29/tracing/instrument/struct.Instrumented.html" title="struct tracing::instrument::Instrumented">Instrumented</a>&lt;Self&gt;</h4></div></summary><div class='docblock'><p>Instruments this type with the provided <a href="https://docs.rs/tracing/0.1.29/tracing/span/struct.Span.html" title="Span"><code>Span</code></a>, returning an
+    <code>Instrumented</code> wrapper. <a href="https://docs.rs/tracing/0.1.29/tracing/instrument/trait.Instrument.html#method.instrument">Read more</a></p>
+    </div></details><details class="rustdoc-toggle method-toggle" open><summary><div id="method.in_current_span" class="method trait-impl has-srclink"><div class="rightside"><a class="srclink" href="https://docs.rs/tracing/0.1.29/src/tracing/instrument.rs.html#121" title="goto source code">[src]</a></div><a href="#method.in_current_span" class="anchor"></a><h4 class="code-header">fn <a href="https://docs.rs/tracing/0.1.29/tracing/instrument/trait.Instrument.html#method.in_current_span" class="fnname">in_current_span</a>(self) -&gt; <a class="struct" href="https://docs.rs/tracing/0.1.29/tracing/instrument/struct.Instrumented.html" title="struct tracing::instrument::Instrumented">Instrumented</a>&lt;Self&gt;</h4></div></summary><div class='docblock'><p>Instruments this type with the <a href="https://docs.rs/tracing/0.1.29/tracing/span/struct.Span.html#method.current">current</a> <a href="https://docs.rs/tracing/0.1.29/tracing/span/struct.Span.html"><code>Span</code></a>, returning an
+    <code>Instrumented</code> wrapper. <a href="https://docs.rs/tracing/0.1.29/tracing/instrument/trait.Instrument.html#method.in_current_span">Read more</a></p>
+    </div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><div id="impl-Into%3CU%3E" class="impl has-srclink"><div class="rightside"><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#537-544" title="goto source code">[src]</a></div><a href="#impl-Into%3CU%3E" class="anchor"></a><h3 class="code-header in-band">impl&lt;T, U&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;U&gt; for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;U: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html" title="trait core::convert::From">From</a>&lt;T&gt;,&nbsp;</span></h3></div></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><div id="method.into" class="method trait-impl has-srclink"><div class="rightside"><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#541" title="goto source code">[src]</a></div><a href="#method.into" class="anchor"></a><h4 class="code-header">pub fn <a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html#tymethod.into" class="fnname">into</a>(self) -&gt; U</h4></div></summary><div class='docblock'><p>Performs the conversion.</p>
+    </div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><div id="impl-LiftInto%3CU%2C%20I%3E" class="impl has-srclink"><div class="rightside"></div><a href="#impl-LiftInto%3CU%2C%20I%3E" class="anchor"></a><h3 class="code-header in-band">impl&lt;T, U, I&gt; LiftInto&lt;U, I&gt; for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;U: LiftFrom&lt;T, I&gt;,&nbsp;</span></h3></div></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><div id="method.lift_into" class="method trait-impl has-srclink"><div class="rightside"></div><a href="#method.lift_into" class="anchor"></a><h4 class="code-header">pub fn <a  class="fnname">lift_into</a>(self) -&gt; U</h4></div></summary><div class='docblock'><p>Performs the indexed conversion.</p>
+    </div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><div id="impl-Sculptor%3CHNil%2C%20HNil%3E" class="impl has-srclink"><div class="rightside"></div><a href="#impl-Sculptor%3CHNil%2C%20HNil%3E" class="anchor"></a><h3 class="code-header in-band">impl&lt;Source&gt; Sculptor&lt;HNil, HNil&gt; for Source</h3></div></summary><div class="impl-items"><div id="associatedtype.Remainder" class="type trait-impl has-srclink"><a href="#associatedtype.Remainder" class="anchor"></a><h4 class="code-header">type <a href="#associatedtype.Remainder" class="type">Remainder</a> = Source</h4></div><details class="rustdoc-toggle method-toggle" open><summary><div id="method.sculpt" class="method trait-impl has-srclink"><div class="rightside"></div><a href="#method.sculpt" class="anchor"></a><h4 class="code-header">pub fn <a  class="fnname">sculpt</a>(self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a>HNil, &lt;Source as Sculptor&lt;HNil, HNil&gt;&gt;::Remainder<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></h4></div></summary><div class='docblock'><p>Consumes the current HList and returns an HList with the requested shape. <a href="#tymethod.sculpt">Read more</a></p>
+    </div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><div id="impl-ToOwned" class="impl has-srclink"><div class="rightside"><a class="srclink" href="https://doc.rust-lang.org/nightly/src/alloc/borrow.rs.html#84-96" title="goto source code">[src]</a></div><a href="#impl-ToOwned" class="anchor"></a><h3 class="code-header in-band">impl&lt;T&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html" title="trait alloc::borrow::ToOwned">ToOwned</a> for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a>,&nbsp;</span></h3></div></summary><div class="impl-items"><details class="rustdoc-toggle" open><summary><div id="associatedtype.Owned" class="type trait-impl has-srclink"><a href="#associatedtype.Owned" class="anchor"></a><h4 class="code-header">type <a href="https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#associatedtype.Owned" class="type">Owned</a> = T</h4></div></summary><div class='docblock'><p>The resulting type after obtaining ownership.</p>
+    </div></details><details class="rustdoc-toggle method-toggle" open><summary><div id="method.to_owned" class="method trait-impl has-srclink"><div class="rightside"><a class="srclink" href="https://doc.rust-lang.org/nightly/src/alloc/borrow.rs.html#89" title="goto source code">[src]</a></div><a href="#method.to_owned" class="anchor"></a><h4 class="code-header">pub fn <a href="https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned" class="fnname">to_owned</a>(&amp;self) -&gt; T</h4></div></summary><div class='docblock'><p>Creates owned data from borrowed data, usually by cloning. <a href="https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#tymethod.to_owned">Read more</a></p>
+    </div></details><details class="rustdoc-toggle method-toggle" open><summary><div id="method.clone_into" class="method trait-impl has-srclink"><div class="rightside"><a class="srclink" href="https://doc.rust-lang.org/nightly/src/alloc/borrow.rs.html#93" title="goto source code">[src]</a></div><a href="#method.clone_into" class="anchor"></a><h4 class="code-header">pub fn <a href="https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into" class="fnname">clone_into</a>(&amp;self, target: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;mut </a>T)</h4></div></summary><div class="item-info"><div class="stab unstable"><details><summary><span class="emoji">🔬</span> This is a nightly-only experimental API. (<code>toowned_clone_into</code>)</summary><p>recently added</p>
+    </details></div></div><div class='docblock'><p>Uses borrowed data to replace owned data, usually by cloning. <a href="https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html#method.clone_into">Read more</a></p>
+    </div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><div id="impl-TryFrom%3CU%3E" class="impl has-srclink"><div class="rightside"><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#587-596" title="goto source code">[src]</a></div><a href="#impl-TryFrom%3CU%3E" class="anchor"></a><h3 class="code-header in-band">impl&lt;T, U&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;U&gt; for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;U: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;T&gt;,&nbsp;</span></h3></div></summary><div class="impl-items"><details class="rustdoc-toggle" open><summary><div id="associatedtype.Error" class="type trait-impl has-srclink"><a href="#associatedtype.Error" class="anchor"></a><h4 class="code-header">type <a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error" class="type">Error</a> = <a class="enum" href="https://doc.rust-lang.org/nightly/core/convert/enum.Infallible.html" title="enum core::convert::Infallible">Infallible</a></h4></div></summary><div class='docblock'><p>The type returned in the event of a conversion error.</p>
+    </div></details><details class="rustdoc-toggle method-toggle" open><summary><div id="method.try_from" class="method trait-impl has-srclink"><div class="rightside"><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#593" title="goto source code">[src]</a></div><a href="#method.try_from" class="anchor"></a><h4 class="code-header">pub fn <a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#tymethod.try_from" class="fnname">try_from</a>(value: U) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;T, &lt;T as <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;U&gt;&gt;::<a class="type" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error" title="type core::convert::TryFrom::Error">Error</a>&gt;</h4></div></summary><div class='docblock'><p>Performs the conversion.</p>
+    </div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><div id="impl-TryInto%3CU%3E" class="impl has-srclink"><div class="rightside"><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#573-582" title="goto source code">[src]</a></div><a href="#impl-TryInto%3CU%3E" class="anchor"></a><h3 class="code-header in-band">impl&lt;T, U&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html" title="trait core::convert::TryInto">TryInto</a>&lt;U&gt; for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;U: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;T&gt;,&nbsp;</span></h3></div></summary><div class="impl-items"><details class="rustdoc-toggle" open><summary><div id="associatedtype.Error-1" class="type trait-impl has-srclink"><a href="#associatedtype.Error-1" class="anchor"></a><h4 class="code-header">type <a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html#associatedtype.Error" class="type">Error</a> = &lt;U as <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;T&gt;&gt;::<a class="type" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error" title="type core::convert::TryFrom::Error">Error</a></h4></div></summary><div class='docblock'><p>The type returned in the event of a conversion error.</p>
+    </div></details><details class="rustdoc-toggle method-toggle" open><summary><div id="method.try_into" class="method trait-impl has-srclink"><div class="rightside"><a class="srclink" href="https://doc.rust-lang.org/nightly/src/core/convert/mod.rs.html#579" title="goto source code">[src]</a></div><a href="#method.try_into" class="anchor"></a><h4 class="code-header">pub fn <a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryInto.html#tymethod.try_into" class="fnname">try_into</a>(self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;U, &lt;U as <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html" title="trait core::convert::TryFrom">TryFrom</a>&lt;T&gt;&gt;::<a class="type" href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#associatedtype.Error" title="type core::convert::TryFrom::Error">Error</a>&gt;</h4></div></summary><div class='docblock'><p>Performs the conversion.</p>
+    </div></details></div></details><details class="rustdoc-toggle implementors-toggle" open><summary><div id="impl-WithSubscriber" class="impl has-srclink"><div class="rightside"><a class="srclink" href="https://docs.rs/tracing/0.1.29/src/tracing/instrument.rs.html#334" title="goto source code">[src]</a></div><a href="#impl-WithSubscriber" class="anchor"></a><h3 class="code-header in-band">impl&lt;T&gt; <a class="trait" href="https://docs.rs/tracing/0.1.29/tracing/instrument/trait.WithSubscriber.html" title="trait tracing::instrument::WithSubscriber">WithSubscriber</a> for T</h3></div></summary><div class="impl-items"><details class="rustdoc-toggle method-toggle" open><summary><div id="method.with_subscriber" class="method trait-impl has-srclink"><div class="rightside"><a class="srclink" href="https://docs.rs/tracing/0.1.29/src/tracing/instrument.rs.html#169-171" title="goto source code">[src]</a></div><a href="#method.with_subscriber" class="anchor"></a><h4 class="code-header">fn <a href="https://docs.rs/tracing/0.1.29/tracing/instrument/trait.WithSubscriber.html#method.with_subscriber" class="fnname">with_subscriber</a>&lt;S&gt;(self, subscriber: S) -&gt; <a class="struct" href="https://docs.rs/tracing/0.1.29/tracing/instrument/struct.WithDispatch.html" title="struct tracing::instrument::WithDispatch">WithDispatch</a>&lt;Self&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;S: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://docs.rs/tracing-core/0.1.21/tracing_core/dispatcher/struct.Dispatch.html" title="struct tracing_core::dispatcher::Dispatch">Dispatch</a>&gt;,&nbsp;</span></h4></div></summary><div class='docblock'><p>Attaches the provided <a href="https://docs.rs/tracing-core/0.1.21/tracing_core/subscriber/trait.Subscriber.html"><code>Subscriber</code></a> to this type, returning a
+    <a href="https://docs.rs/tracing/0.1.29/tracing/instrument/struct.WithDispatch.html" title="WithDispatch"><code>WithDispatch</code></a> wrapper. <a href="https://docs.rs/tracing/0.1.29/tracing/instrument/trait.WithSubscriber.html#method.with_subscriber">Read more</a></p>
+    </div></details><details class="rustdoc-toggle method-toggle" open><summary><div id="method.with_current_subscriber" class="method trait-impl has-srclink"><div class="rightside"><a class="srclink" href="https://docs.rs/tracing/0.1.29/src/tracing/instrument.rs.html#221" title="goto source code">[src]</a></div><a href="#method.with_current_subscriber" class="anchor"></a><h4 class="code-header">fn <a href="https://docs.rs/tracing/0.1.29/tracing/instrument/trait.WithSubscriber.html#method.with_current_subscriber" class="fnname">with_current_subscriber</a>(self) -&gt; <a class="struct" href="https://docs.rs/tracing/0.1.29/tracing/instrument/struct.WithDispatch.html" title="struct tracing::instrument::WithDispatch">WithDispatch</a>&lt;Self&gt;</h4></div></summary><div class='docblock'><p>Attaches the current <a href="https://docs.rs/tracing/0.1.29/tracing/dispatcher/index.html#setting-the-default-subscriber">default</a> <a href="https://docs.rs/tracing-core/0.1.21/tracing_core/subscriber/trait.Subscriber.html"><code>Subscriber</code></a> to this type, returning a
+    <a href="https://docs.rs/tracing/0.1.29/tracing/instrument/struct.WithDispatch.html" title="WithDispatch"><code>WithDispatch</code></a> wrapper. <a href="https://docs.rs/tracing/0.1.29/tracing/instrument/trait.WithSubscriber.html#method.with_current_subscriber">Read more</a></p>
+    </div></details></div></details><div id="impl-DeserializeOwned" class="impl has-srclink"><div class="rightside"><a class="srclink" href="https://docs.rs/serde/1.0.130/src/serde/de/mod.rs.html#603" title="goto source code">[src]</a></div><a href="#impl-DeserializeOwned" class="anchor"></a><h3 class="code-header in-band">impl&lt;T&gt; <a class="trait" href="https://docs.rs/serde/1.0.130/serde/de/trait.DeserializeOwned.html" title="trait serde::de::DeserializeOwned">DeserializeOwned</a> for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: for&lt;'de&gt; <a class="trait" href="https://docs.rs/serde/1.0.130/serde/de/trait.Deserialize.html" title="trait serde::de::Deserialize">Deserialize</a>&lt;'de&gt;,&nbsp;</span></h3></div></div></section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="teloxide" data-search-index-js="../../search-index-20211024-1.58.0-nightly-00d5e42e7.js" data-search-js="/search-20211024-1.58.0-nightly-00d5e42e7.js"></div>
+        <script src="/main-20211024-1.58.0-nightly-00d5e42e7.js"></script>
+    </div></body></html>

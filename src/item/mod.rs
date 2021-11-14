@@ -4,6 +4,7 @@ use selectors::attr::CaseSensitivity;
 
 use crate::atom::{parse_text_inside, TextPart};
 
+pub mod fields;
 pub mod table;
 
 pub fn parse_item_header(maybe_section_header: NodeRef<Node>) -> Option<Vec<TextPart>> {

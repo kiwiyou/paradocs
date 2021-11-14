@@ -8,7 +8,6 @@ use crate::atom::{
 };
 
 pub fn parse_item_table(maybe_item_table: NodeRef<Node>) -> Option<Vec<ItemRow>> {
-    eprintln!("{:#?}", maybe_item_table.value());
     let item_table = maybe_item_table.value().as_element()?;
 
     if !(item_table.name() == "div"

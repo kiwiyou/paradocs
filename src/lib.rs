@@ -6,13 +6,18 @@ use atom::{parse_pre, TextPart};
 use header::{parse_fqn, parse_item_decl, parse_item_info, parse_top_doc, Section};
 use item::{
     parse_item_header,
-    table::{parse_block_table, parse_item_table, ItemRow},
+    table::{parse_block_table, parse_item_table},
+    Impl, Item, ItemRow,
 };
 use scraper::{Html, Selector};
 
 use crate::{
     header::parse_doc_block,
-    item::{fields::parse_struct_field_or_variant, is_item_header},
+    item::{
+        fields::parse_struct_field_or_variant,
+        impls::{parse_impl_div, parse_impl_heading, parse_impl_items},
+        is_item_header,
+    },
 };
 
 #[derive(Debug)]
@@ -36,13 +41,8 @@ pub struct ItemListing<'a> {
 #[derive(Debug)]
 pub enum ListingType<'a> {
     Table(Vec<ItemRow<'a>>),
-    Fields(Vec<Field<'a>>),
-}
-
-#[derive(Debug)]
-pub struct Field<'a> {
-    name: Vec<TextPart<'a>>,
-    description: Option<Vec<Section<'a>>>,
+    Fields(Vec<Item<'a>>),
+    Impls(Vec<Impl<'a>>),
 }
 
 pub fn parse_document(html: &Html) -> Option<Document> {
@@ -80,7 +80,7 @@ pub fn parse_document(html: &Html) -> Option<Document> {
 
     let mut children = children.peekable();
 
-    let mut items = vec![];
+    let mut listings = vec![];
     while let Some(maybe_heading) = children.next() {
         if let Some(heading) = parse_item_header(maybe_heading) {
             while let Some(maybe_content) = children.peek() {
@@ -90,36 +90,74 @@ pub fn parse_document(html: &Html) -> Option<Document> {
                     parse_item_table(*maybe_content).or_else(|| parse_block_table(*maybe_content))
                 {
                     children.next();
-                    items.push(ItemListing {
+                    listings.push(ItemListing {
                         heading,
                         kind: ListingType::Table(table),
                     });
                     break;
                 } else if let Some(field) = parse_struct_field_or_variant(*maybe_content) {
-                    let mut fields = vec![];
-                    fields.push(Field {
+                    let mut items = vec![];
+                    items.push(Item {
                         name: field,
+                        info: Default::default(),
                         description: None,
                     });
                     children.next();
-                    while let Some(field_or_desc) = children.peek() {
-                        if is_item_header(*field_or_desc) {
+                    while let Some(sibling) = children.peek() {
+                        if is_item_header(*sibling) {
                             break;
-                        } else if let Some(field) = parse_struct_field_or_variant(*field_or_desc) {
-                            fields.push(Field {
+                        } else if let Some(field) = parse_struct_field_or_variant(*sibling) {
+                            items.push(Item {
                                 name: field,
+                                info: Default::default(),
                                 description: None,
                             });
-                        } else if let Some(description) = parse_doc_block(*field_or_desc) {
-                            if let Some(last_field) = fields.last_mut() {
-                                last_field.description = Some(description.sections);
+                        } else if let Some(item_info) = parse_item_info(*sibling) {
+                            if let Some(last_item) = items.last_mut() {
+                                last_item.info = item_info;
+                            }
+                        } else if let Some(description) = parse_doc_block(*sibling) {
+                            if let Some(last_item) = items.last_mut() {
+                                last_item.description = Some(description.sections);
                             }
                         }
                         children.next();
                     }
-                    items.push(ItemListing {
+                    listings.push(ItemListing {
                         heading,
-                        kind: ListingType::Fields(fields),
+                        kind: ListingType::Fields(items),
+                    });
+                    break;
+                } else if let Some(impl_heading) = parse_impl_heading(*maybe_content) {
+                    let mut impls = vec![];
+                    impls.push(Impl {
+                        target: impl_heading.title,
+                        items: vec![],
+                    });
+                    while let Some(sibling) = children.peek() {
+                        if is_item_header(*sibling) {
+                            break;
+                        } else if let Some(impl_items) = parse_impl_items(*sibling) {
+                            if let Some(last_impl) = impls.last_mut() {
+                                last_impl.items = impl_items;
+                            }
+                        } else if let Some(impl_heading) = parse_impl_heading(*sibling) {
+                            impls.push(Impl {
+                                target: impl_heading.title,
+                                items: vec![],
+                            });
+                        }
+                        children.next();
+                    }
+                    listings.push(ItemListing {
+                        heading,
+                        kind: ListingType::Impls(impls),
+                    });
+                    break;
+                } else if let Some(impl_div) = parse_impl_div(*maybe_content) {
+                    listings.push(ItemListing {
+                        heading,
+                        kind: ListingType::Impls(impl_div),
                     });
                     break;
                 } else {
@@ -137,6 +175,6 @@ pub fn parse_document(html: &Html) -> Option<Document> {
         portability,
         deprecation,
         description: doc_block.sections,
-        items,
+        items: listings,
     })
 }

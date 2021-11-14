@@ -17,4 +17,8 @@ fn main() {
     let teloxide_types_keyboard = include_str!("../teloxide_types_keyboard.html");
     let teloxide_types_keyboard_html = Html::parse_document(teloxide_types_keyboard);
     println!("{:#?}", parse_document(&teloxide_types_keyboard_html));
+
+    let scraper_html_html = include_str!("../scraper_html_html.html");
+    let scraper_html_html_html = Html::parse_document(scraper_html_html);
+    println!("{:#?}", parse_document(&scraper_html_html_html));
 }

@@ -98,6 +98,7 @@ pub fn parse_item_decl(maybe_item_decl: NodeRef<Node>) -> Option<ItemDecl> {
     None
 }
 
+#[derive(Debug, Default)]
 pub struct ItemInfo<'a> {
     pub stability: Option<Vec<TextPart<'a>>>,
     pub portability: Option<Vec<TextPart<'a>>>,

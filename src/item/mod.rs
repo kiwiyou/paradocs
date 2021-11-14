@@ -2,9 +2,13 @@ use ego_tree::NodeRef;
 use scraper::Node;
 use selectors::attr::CaseSensitivity;
 
-use crate::atom::{parse_text_inside, TextPart};
+use crate::{
+    atom::{parse_text_inside, TextPart},
+    header::{ItemInfo, Section},
+};
 
 pub mod fields;
+pub mod impls;
 pub mod table;
 
 pub fn parse_item_header(maybe_section_header: NodeRef<Node>) -> Option<Vec<TextPart>> {
@@ -30,4 +34,24 @@ pub fn is_item_header(maybe_section_header: NodeRef<Node>) -> bool {
                     || section_header
                         .has_class("small-section-header", CaseSensitivity::CaseSensitive))
         })
+}
+
+#[derive(Debug)]
+pub struct ItemRow<'a> {
+    pub name: Vec<TextPart<'a>>,
+    pub info: ItemInfo<'a>,
+    pub summary: Vec<TextPart<'a>>,
+}
+
+#[derive(Debug)]
+pub struct Item<'a> {
+    pub name: Vec<TextPart<'a>>,
+    pub info: ItemInfo<'a>,
+    pub description: Option<Vec<Section<'a>>>,
+}
+
+#[derive(Debug)]
+pub struct Impl<'a> {
+    pub target: Vec<TextPart<'a>>,
+    pub items: Vec<Item<'a>>,
 }

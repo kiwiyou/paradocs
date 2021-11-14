@@ -2,9 +2,13 @@ use ego_tree::NodeRef;
 use scraper::Node;
 use selectors::attr::CaseSensitivity;
 
-use crate::atom::{
-    parse_deprecated, parse_portability, parse_text_inside, parse_text_outside, parse_unstable,
-    TextPart,
+use crate::{
+    atom::{
+        parse_deprecated, parse_portability, parse_text_inside, parse_text_outside, parse_unstable,
+        TextPart,
+    },
+    header::ItemInfo,
+    item::ItemRow,
 };
 
 pub fn parse_item_table(maybe_item_table: NodeRef<Node>) -> Option<Vec<ItemRow>> {
@@ -27,25 +31,14 @@ pub fn parse_item_table(maybe_item_table: NodeRef<Node>) -> Option<Vec<ItemRow>>
             let left = parse_item_left(child)?;
             let right = parse_item_right(children.next()?)?;
             rows.push(ItemRow {
-                item: left.text,
-                stability: left.stability,
-                portability: left.portability,
-                deprecation: left.deprecation,
+                name: left.text,
+                info: left.info,
                 summary: right,
             });
         }
     }
 
     Some(rows)
-}
-
-#[derive(Debug)]
-pub struct ItemRow<'a> {
-    pub item: Vec<TextPart<'a>>,
-    pub stability: Option<Vec<TextPart<'a>>>,
-    pub portability: Option<Vec<TextPart<'a>>>,
-    pub deprecation: Option<Vec<TextPart<'a>>>,
-    pub summary: Vec<TextPart<'a>>,
 }
 
 fn parse_item_row(maybe_item_row: NodeRef<Node>) -> Option<ItemRow> {
@@ -61,19 +54,15 @@ fn parse_item_row(maybe_item_row: NodeRef<Node>) -> Option<ItemRow> {
     let right = parse_item_right(children.next()?)?;
 
     Some(ItemRow {
-        item: left.text,
-        stability: left.stability,
-        portability: left.portability,
-        deprecation: left.deprecation,
+        name: left.text,
+        info: left.info,
         summary: right,
     })
 }
 
 struct ItemLeft<'a> {
     text: Vec<TextPart<'a>>,
-    stability: Option<Vec<TextPart<'a>>>,
-    portability: Option<Vec<TextPart<'a>>>,
-    deprecation: Option<Vec<TextPart<'a>>>,
+    info: ItemInfo<'a>,
 }
 
 fn parse_item_left(maybe_item_left: NodeRef<Node>) -> Option<ItemLeft> {
@@ -99,9 +88,11 @@ fn parse_item_left(maybe_item_left: NodeRef<Node>) -> Option<ItemLeft> {
 
     Some(ItemLeft {
         text,
-        stability,
-        portability,
-        deprecation,
+        info: ItemInfo {
+            stability,
+            portability,
+            deprecation,
+        },
     })
 }
 
@@ -173,10 +164,12 @@ pub fn parse_block_table(maybe_table: NodeRef<Node>) -> Option<Vec<ItemRow>> {
         let right = children.next().and_then(parse_right).unwrap_or_default();
 
         rows.push(ItemRow {
-            item: text,
-            stability,
-            portability,
-            deprecation,
+            name: text,
+            info: ItemInfo {
+                stability,
+                portability,
+                deprecation,
+            },
             summary: right,
         })
     }

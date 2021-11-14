@@ -19,7 +19,7 @@ use crate::{
     },
 };
 
-pub use atom::{Details, TextPart, TextStyle};
+pub use atom::{Details, TextPart, TextStyle, Paragraph};
 pub use header::Section;
 pub use item::{Impl, Item, ItemRow};
 

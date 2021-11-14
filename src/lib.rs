@@ -1,16 +1,16 @@
 mod atom;
 mod header;
-mod section;
+mod item;
 
 use atom::{parse_pre, TextPart};
 use header::{parse_fqn, parse_item_decl, parse_item_info, parse_top_doc, Section};
-use scraper::{Html, Selector};
-use section::{
-    parse_section_header,
+use item::{
+    parse_item_header,
     table::{parse_block_table, parse_item_table, ItemRow},
 };
+use scraper::{Html, Selector};
 
-use crate::{header::parse_doc_block, section::is_section_header};
+use crate::{header::parse_doc_block, item::is_item_header};
 
 #[derive(Debug)]
 pub struct Document<'a> {
@@ -72,9 +72,9 @@ pub fn parse_document(html: &Html) -> Option<Document> {
 
     let mut items = vec![];
     while let Some(maybe_heading) = children.next() {
-        if let Some(heading) = parse_section_header(maybe_heading) {
+        if let Some(heading) = parse_item_header(maybe_heading) {
             while let Some(maybe_content) = children.peek() {
-                if is_section_header(*maybe_content) {
+                if is_item_header(*maybe_content) {
                     break;
                 } else if let Some(table) =
                     parse_item_table(*maybe_content).or_else(|| parse_block_table(*maybe_content))

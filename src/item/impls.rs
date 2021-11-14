@@ -85,6 +85,14 @@ pub fn parse_impl_items(maybe_impl_items: NodeRef<Node>) -> Option<Vec<Item>> {
             if let Some(last_item) = items.last_mut() {
                 last_item.description = Some(doc_block.sections);
             }
+        } else if let Some(name) = parse_srclink(child) {
+            items.push(Item {
+                name,
+                info: Default::default(),
+                description: None,
+            });
+        } else if let Some(toggle) = parse_toggle_item(child) {
+            items.push(toggle);
         }
     }
     Some(items)
@@ -141,4 +149,83 @@ pub fn parse_impl_div(maybe_impl_list: NodeRef<Node>) -> Option<Vec<Impl>> {
     }
 
     Some(impls)
+}
+
+pub fn parse_implementor(maybe_implementor: NodeRef<Node>) -> Option<Impl> {
+    let implementor = maybe_implementor.value().as_element()?;
+
+    if !(implementor.name() == "details"
+        && implementor.has_class("implementors-toggle", CaseSensitivity::CaseSensitive))
+    {
+        return None;
+    }
+
+    let mut children = maybe_implementor.children();
+    let maybe_summary = children.next()?;
+    let summary = maybe_summary.value().as_element()?;
+
+    if summary.name() != "summary" {
+        return None;
+    }
+
+    let target = parse_srclink(maybe_summary.first_child()?)?;
+
+    let items = children
+        .next()
+        .and_then(parse_impl_items)
+        .unwrap_or_default();
+
+    Some(Impl { target, items })
+}
+
+pub fn parse_implementor_or_empty(node: NodeRef<Node>) -> Option<Impl> {
+    parse_implementor(node).or_else(|| parse_empty_impl(node))
+}
+
+fn parse_srclink(maybe_srclink: NodeRef<Node>) -> Option<Vec<TextPart>> {
+    let srclink = maybe_srclink.value().as_element()?;
+
+    if !(srclink.name() == "div"
+        && srclink.has_class("has-srclink", CaseSensitivity::CaseSensitive))
+    {
+        return None;
+    }
+
+    for child in maybe_srclink.children() {
+        if let Some(code_header) = child.value().as_element() {
+            if code_header.has_class("code-header", CaseSensitivity::CaseSensitive)
+            {
+                return Some(parse_text_inside(child));
+            }
+        }
+    }
+    None
+}
+
+fn parse_toggle_item(maybe_toggle_item: NodeRef<Node>) -> Option<Item> {
+    let toggle_item = maybe_toggle_item.value().as_element()?;
+
+    if toggle_item.name() != "details" {
+        return None;
+    }
+
+    eprintln!("{:#?}", toggle_item);
+
+    let mut children = maybe_toggle_item.children();
+    let maybe_summary = children.next()?;
+    let summary = maybe_summary.value().as_element()?;
+
+    if summary.name() != "summary" {
+        return None;
+    }
+
+    let srclink = parse_srclink(maybe_summary.first_child()?)?;
+
+    let doc_block = parse_doc_block(children.next()?)?;
+
+    Some(Item {
+        name: srclink,
+        info: Default::default(),
+        description: Some(doc_block.sections),
+    })
 }

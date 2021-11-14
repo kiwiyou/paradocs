@@ -153,38 +153,90 @@ pub fn parse_text_inside(node: NodeRef<Node>) -> Vec<TextPart> {
     buffer
 }
 
-fn parse_text_inside_to<'a>(node: NodeRef<'a, Node>, buffer: &mut Vec<TextPart<'a>>) {
+pub fn parse_text_inside_to<'a>(node: NodeRef<'a, Node>, buffer: &mut Vec<TextPart<'a>>) {
     for child in node.children() {
         parse_text_outside_to(child, buffer);
     }
 }
 
-pub fn parse_unstable(maybe_unstable: NodeRef<Node>) -> Option<Vec<TextPart>> {
+#[derive(Debug)]
+pub struct Details<'a> {
+    pub summary: Vec<TextPart<'a>>,
+    pub detail: Option<Vec<TextPart<'a>>>,
+}
+
+pub fn parse_unstable(maybe_unstable: NodeRef<Node>) -> Option<Details> {
     let unstable = maybe_unstable.value().as_element()?;
 
     if !(unstable.has_class("unstable", CaseSensitivity::CaseSensitive)) {
         return None;
     }
 
-    Some(parse_text_inside(maybe_unstable))
+    let result = maybe_unstable
+        .first_child()
+        .and_then(parse_details)
+        .unwrap_or_else(|| Details {
+            summary: parse_text_inside(maybe_unstable),
+            detail: None,
+        });
+    Some(result)
 }
 
-pub fn parse_portability(maybe_portability: NodeRef<Node>) -> Option<Vec<TextPart>> {
+pub fn parse_portability(maybe_portability: NodeRef<Node>) -> Option<Details> {
     let portability = maybe_portability.value().as_element()?;
 
     if !(portability.has_class("portability", CaseSensitivity::CaseSensitive)) {
         return None;
     }
 
-    Some(parse_text_inside(maybe_portability))
+    let result = maybe_portability
+        .first_child()
+        .and_then(parse_details)
+        .unwrap_or_else(|| Details {
+            summary: parse_text_inside(maybe_portability),
+            detail: None,
+        });
+    Some(result)
 }
 
-pub fn parse_deprecated(maybe_deprecated: NodeRef<Node>) -> Option<Vec<TextPart>> {
+pub fn parse_deprecated(maybe_deprecated: NodeRef<Node>) -> Option<Details> {
     let deprecated = maybe_deprecated.value().as_element()?;
 
     if !(deprecated.has_class("deprecated", CaseSensitivity::CaseSensitive)) {
         return None;
     }
 
-    Some(parse_text_inside(maybe_deprecated))
+    let result = maybe_deprecated
+        .first_child()
+        .and_then(parse_details)
+        .unwrap_or_else(|| Details {
+            summary: parse_text_inside(maybe_deprecated),
+            detail: None,
+        });
+    Some(result)
+}
+
+fn parse_details(maybe_details: NodeRef<Node>) -> Option<Details> {
+    let details = maybe_details.value().as_element()?;
+
+    if details.name() != "details" {
+        return None;
+    }
+
+    let mut children = maybe_details.children();
+    let maybe_summary = children.next()?;
+    let summary = maybe_summary.value().as_element()?;
+
+    if summary.name() != "summary" {
+        return None;
+    }
+    let summary = parse_text_inside(maybe_summary);
+
+    let mut detail = vec![];
+    children.for_each(|child| parse_text_outside_to(child, &mut detail));
+
+    Some(Details {
+        summary,
+        detail: Some(detail),
+    })
 }

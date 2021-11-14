@@ -2,7 +2,7 @@ mod atom;
 mod header;
 mod item;
 
-use atom::{parse_pre, TextPart};
+use atom::{parse_pre, Details, TextPart};
 use header::{parse_fqn, parse_item_decl, parse_item_info, parse_top_doc, Section};
 use item::{
     parse_item_header,
@@ -15,7 +15,7 @@ use crate::{
     header::parse_doc_block,
     item::{
         fields::parse_struct_field_or_variant,
-        impls::{parse_empty_impl, parse_impl_div, parse_impl_heading, parse_impl_items},
+        impls::{parse_impl_div, parse_impl_heading, parse_impl_items, parse_implementor_or_empty},
         is_item_header,
     },
 };
@@ -25,9 +25,9 @@ pub struct Document<'a> {
     pub title: Vec<TextPart<'a>>,
     pub since: Option<&'a str>,
     pub declaration: Option<Vec<TextPart<'a>>>,
-    pub stability: Option<Vec<TextPart<'a>>>,
-    pub portability: Option<Vec<TextPart<'a>>>,
-    pub deprecation: Option<Vec<TextPart<'a>>>,
+    pub stability: Option<Details<'a>>,
+    pub portability: Option<Details<'a>>,
+    pub deprecation: Option<Details<'a>>,
     pub description: Vec<Section<'a>>,
     pub items: Vec<ItemListing<'a>>,
 }
@@ -134,6 +134,7 @@ pub fn parse_document(html: &Html) -> Option<Document> {
                         target: impl_heading.title,
                         items: vec![],
                     });
+                    children.next();
                     while let Some(sibling) = children.peek() {
                         if is_item_header(*sibling) {
                             break;
@@ -146,8 +147,22 @@ pub fn parse_document(html: &Html) -> Option<Document> {
                                 target: impl_heading.title,
                                 items: vec![],
                             });
-                        } else if let Some(empty) = parse_empty_impl(*sibling) {
-                            impls.push(empty);
+                        }
+                        children.next();
+                    }
+                    listings.push(ItemListing {
+                        heading,
+                        kind: ListingType::Impls(impls),
+                    });
+                    break;
+                } else if let Some(implementor) = parse_implementor_or_empty(*maybe_content) {
+                    let mut impls = vec![implementor];
+                    children.next();
+                    while let Some(sibling) = children.peek() {
+                        if is_item_header(*sibling) {
+                            break;
+                        } else if let Some(impl_or_empty) = parse_implementor_or_empty(*sibling) {
+                            impls.push(impl_or_empty);
                         }
                         children.next();
                     }

@@ -4,7 +4,7 @@ use selectors::attr::CaseSensitivity;
 
 use crate::atom::{
     parse_code, parse_deprecated, parse_list, parse_p, parse_portability, parse_pre,
-    parse_text_inside, parse_unstable, Paragraph, TextPart,
+    parse_text_inside, parse_unstable, Details, Paragraph, TextPart,
 };
 
 pub struct Fqn<'a> {
@@ -100,9 +100,9 @@ pub fn parse_item_decl(maybe_item_decl: NodeRef<Node>) -> Option<ItemDecl> {
 
 #[derive(Debug, Default)]
 pub struct ItemInfo<'a> {
-    pub stability: Option<Vec<TextPart<'a>>>,
-    pub portability: Option<Vec<TextPart<'a>>>,
-    pub deprecation: Option<Vec<TextPart<'a>>>,
+    pub stability: Option<Details<'a>>,
+    pub portability: Option<Details<'a>>,
+    pub deprecation: Option<Details<'a>>,
 }
 
 pub fn parse_item_info(maybe_item_info: NodeRef<Node>) -> Option<ItemInfo> {

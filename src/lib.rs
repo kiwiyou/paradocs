@@ -19,8 +19,8 @@ use crate::{
     },
 };
 
-pub use atom::{Details, TextPart, TextStyle, Paragraph};
-pub use header::Section;
+pub use atom::{Details, Paragraph, TextPart, TextStyle};
+pub use header::{ItemInfo, Section};
 pub use item::{Impl, Item, ItemRow};
 
 pub use scraper::Html;
@@ -29,10 +29,7 @@ pub use scraper::Html;
 pub struct Document<'a> {
     pub title: Vec<TextPart<'a>>,
     pub since: Option<&'a str>,
-    pub declaration: Option<Vec<TextPart<'a>>>,
-    pub stability: Option<Details<'a>>,
-    pub portability: Option<Details<'a>>,
-    pub deprecation: Option<Details<'a>>,
+    pub info: ItemInfo<'a>,
     pub description: Vec<Section<'a>>,
     pub items: Vec<ItemListing<'a>>,
 }
@@ -70,18 +67,15 @@ pub fn parse_document(html: &Html) -> Option<Document> {
         children.next()
     };
     let item_info = maybe_item_info.and_then(parse_item_info);
-    let (stability, portability, deprecation) = item_info.map_or((None, None, None), |info| {
-        (info.stability, info.portability, info.deprecation)
-    });
 
-    let maybe_top_doc = if stability.is_none() && portability.is_none() && deprecation.is_none() {
+    let maybe_top_doc = if item_info.is_none() {
         maybe_item_info
     } else {
         children.next()
-    }?;
-    let doc_block = parse_top_doc(maybe_top_doc)
+    };
+    let doc_block = maybe_top_doc.and_then(parse_top_doc)
         .map(|top_doc| top_doc.doc_block)
-        .or_else(|| parse_doc_block(maybe_top_doc))?;
+        .or_else(|| maybe_top_doc.and_then(parse_doc_block));
 
     let mut children = children.peekable();
 
@@ -190,11 +184,8 @@ pub fn parse_document(html: &Html) -> Option<Document> {
     Some(Document {
         title: fqn.title,
         since: fqn.since,
-        declaration,
-        stability,
-        portability,
-        deprecation,
-        description: doc_block.sections,
+        info: item_info.unwrap_or_default(),
+        description: doc_block.map_or_else(|| vec![], |block| block.sections),
         items: listings,
     })
 }

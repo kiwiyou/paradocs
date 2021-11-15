@@ -72,13 +72,15 @@ pub fn parse_pre(maybe_pre: NodeRef<Node>) -> Option<Pre> {
 #[derive(Debug)]
 pub enum TextPart<'a> {
     Text(&'a str),
+    Image(&'a str),
+    Table,
     BeginStyle(TextStyle<'a>),
     EndStyle,
 }
 
 #[derive(Debug)]
 pub enum TextStyle<'a> {
-    Link(Option<&'a str>),
+    Link(&'a str),
     Bold,
     Italic,
     Underline,
@@ -99,10 +101,11 @@ fn parse_text_outside_to<'a>(node: NodeRef<'a, Node>, buffer: &mut Vec<TextPart<
         }
         Node::Element(element) => match element.name() {
             "a" => {
-                let href = element.attr("href");
-                buffer.push(TextPart::BeginStyle(TextStyle::Link(href)));
-                parse_text_inside_to(node, buffer);
-                buffer.push(TextPart::EndStyle);
+                if let Some(href) = element.attr("href") {
+                    buffer.push(TextPart::BeginStyle(TextStyle::Link(href)));
+                    parse_text_inside_to(node, buffer);
+                    buffer.push(TextPart::EndStyle);
+                }
             }
             "strong" => {
                 buffer.push(TextPart::BeginStyle(TextStyle::Bold));
@@ -140,6 +143,14 @@ fn parse_text_outside_to<'a>(node: NodeRef<'a, Node>, buffer: &mut Vec<TextPart<
             }
             "p" => {
                 parse_text_inside_to(node, buffer);
+            }
+            "img" => {
+                if let Some(src) = element.attr("src") {
+                    buffer.push(TextPart::Image(src));
+                }
+            }
+            "table" => {
+                buffer.push(TextPart::Table);
             }
             _ => {}
         },

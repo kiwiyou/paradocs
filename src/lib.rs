@@ -74,11 +74,18 @@ pub fn parse_document(html: &Html) -> Option<Document> {
     } else {
         children.next()
     };
-    let doc_block = maybe_top_doc.and_then(parse_top_doc)
+    let doc_block = maybe_top_doc
+        .and_then(parse_top_doc)
         .map(|top_doc| top_doc.doc_block)
         .or_else(|| maybe_top_doc.and_then(parse_doc_block));
 
-    let mut children = children.peekable();
+    let mut children = doc_block
+        .is_none()
+        .then(|| maybe_top_doc)
+        .into_iter()
+        .flatten()
+        .chain(children)
+        .peekable();
 
     let mut listings = vec![];
     while let Some(maybe_heading) = children.next() {

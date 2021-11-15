@@ -29,6 +29,7 @@ pub use scraper::Html;
 pub struct Document<'a> {
     pub title: Vec<TextPart<'a>>,
     pub since: Option<&'a str>,
+    pub declaration: Option<Vec<TextPart<'a>>>,
     pub info: ItemInfo<'a>,
     pub description: Vec<Section<'a>>,
     pub items: Vec<ItemListing<'a>>,
@@ -184,6 +185,7 @@ pub fn parse_document(html: &Html) -> Option<Document> {
     Some(Document {
         title: fqn.title,
         since: fqn.since,
+        declaration,
         info: item_info.unwrap_or_default(),
         description: doc_block.map_or_else(|| vec![], |block| block.sections),
         items: listings,
